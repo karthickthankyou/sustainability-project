@@ -1,0 +1,63 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+model Manufacturer {
+    id       String    @unique
+    products Product[]
+}
+
+model Product {
+    id        String   @unique
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    quantity      Int
+    plasticWeight Int
+
+    manufacturer   Manufacturer  @relation(fields: [manufacturerId], references: [id])
+    manufacturerId String
+    productItems   ProductItem[]
+}
+
+model ProductItem {
+    id        String   @unique
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    product   Product @relation(fields: [productId], references: [id])
+    productId String
+
+    status       Status
+    transactions Transaction[]
+}
+
+model Transaction {
+    id        Int      @id @default(autoincrement())
+    createdAt DateTime @default(now())
+
+    productItemId String
+    productItem   ProductItem @relation(fields: [productItemId], references: [id])
+    action        Action
+}
+
+enum Status {
+    MANUFACTURED
+    SOLD
+    RETURNED
+}
+
+enum Action {
+    PRODUCT_CREATED
+    PRODUCT_ADDED
+    PRODUCT_SOLD
+    PRODUCT_RETURNED
+}
