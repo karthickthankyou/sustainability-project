@@ -1,0 +1,12 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Sample {
+  name: String!
+}
+
+type Query {
+  samples: [Sample!]!
+  sample(id: Int!): Sample!
+}
