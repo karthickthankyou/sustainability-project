@@ -46,18 +46,11 @@ model Transaction {
 
     productItemId String
     productItem   ProductItem @relation(fields: [productItemId], references: [id])
-    action        Action
+    status        Status
 }
 
 enum Status {
     MANUFACTURED
     SOLD
     RETURNED
-}
-
-enum Action {
-    PRODUCT_CREATED
-    PRODUCT_ADDED
-    PRODUCT_SOLD
-    PRODUCT_RETURNED
 }
