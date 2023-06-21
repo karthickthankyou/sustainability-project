@@ -6,6 +6,8 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo'
 import { join } from 'path'
 import { ConfigModule } from '@nestjs/config'
 import { SamplesModule } from './models/samples/samples.module'
+import { PolygonModule } from './polygon/polygon.module'
+import { PrismaModule } from './common/prisma/prisma.module'
 
 @Module({
   imports: [
@@ -18,6 +20,9 @@ import { SamplesModule } from './models/samples/samples.module'
         numberScalarMode: 'integer',
       },
     }),
+
+    PrismaModule,
+    PolygonModule,
 
     SamplesModule,
   ],

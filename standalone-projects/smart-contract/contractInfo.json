@@ -1,5 +1,5 @@
 {
-  "contractAddress": "0x9Ed75D5DB9F219212673aF704D8d651C85E9f845",
+  "contractAddress": "0x9043dCE1B94168416Eff94347Fa7E54d31888275",
   "abi": [
     {
       "anonymous": false,
@@ -22,9 +22,27 @@
           "internalType": "uint256",
           "name": "productId",
           "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "name",
+          "type": "string"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "plasticWeight",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "manufacturer",
+          "type": "address"
         }
       ],
-      "name": "ProductAdded",
+      "name": "ProductCreated",
       "type": "event"
     },
     {
@@ -210,6 +228,11 @@
           "internalType": "uint256",
           "name": "itemCount",
           "type": "uint256"
+        },
+        {
+          "internalType": "address",
+          "name": "manufacturer",
+          "type": "address"
         }
       ],
       "stateMutability": "view",

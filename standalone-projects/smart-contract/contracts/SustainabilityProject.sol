@@ -10,9 +10,9 @@ contract SustainabilityProject is Initializable {
     }
 
     enum ProductStatus {
-        Manufactured,
-        Sold,
-        Returned
+        MANUFACTURED,
+        SOLD,
+        RETURNED
     }
 
     struct Product {
@@ -20,6 +20,7 @@ contract SustainabilityProject is Initializable {
         string name;
         uint256 plasticWeight;
         uint256 itemCount;
+        address manufacturer;
     }
 
     struct ProductItem {
@@ -32,10 +33,15 @@ contract SustainabilityProject is Initializable {
     mapping(string => ProductItem) public productItems;
     mapping(address => string[]) public inventory;
 
-    event ProductAdded(uint256 productId);
-    event ProductItemAdded(string itemId, uint256 productId); // Change to string itemId
-    event ProductItemSold(string itemId); // Change to string itemId
-    event ProductItemReturned(string itemId); // Change to string itemId
+    event ProductCreated(
+        uint256 productId,
+        string name,
+        uint256 plasticWeight,
+        address manufacturer
+    );
+    event ProductItemAdded(string itemId, uint256 productId);
+    event ProductItemSold(string itemId);
+    event ProductItemReturned(string itemId);
 
     function addProduct(string memory _name, uint256 _plasticWeight) public {
         productCounter++;
@@ -43,17 +49,22 @@ contract SustainabilityProject is Initializable {
             id: productCounter,
             name: _name,
             plasticWeight: _plasticWeight,
-            itemCount: 0
+            itemCount: 0,
+            manufacturer: msg.sender
         });
 
         products[productCounter] = newProduct;
-        emit ProductAdded(productCounter);
+        emit ProductCreated(productCounter, _name, _plasticWeight, msg.sender);
     }
 
     function addProductItems(uint256 _productId, uint256 _quantity) public {
         require(
             _quantity <= 10,
             'Cannot add more than 10 product items at a time.'
+        );
+        require(
+            msg.sender == products[_productId].manufacturer,
+            'Only the product manufacturer can add product items.'
         );
         require(
             products[_productId].id == _productId,
@@ -73,7 +84,7 @@ contract SustainabilityProject is Initializable {
             ProductItem memory newItem = ProductItem({
                 id: itemId,
                 productId: _productId,
-                status: ProductStatus.Manufactured
+                status: ProductStatus.MANUFACTURED
             });
 
             productItems[itemId] = newItem;
@@ -84,21 +95,21 @@ contract SustainabilityProject is Initializable {
 
     function sellProductItem(string memory _itemId) public {
         require(
-            productItems[_itemId].status == ProductStatus.Manufactured,
+            productItems[_itemId].status == ProductStatus.MANUFACTURED,
             'Product Item cannot be sold.'
         );
 
-        productItems[_itemId].status = ProductStatus.Sold;
+        productItems[_itemId].status = ProductStatus.SOLD;
         emit ProductItemSold(_itemId);
     }
 
     function returnProductItem(string memory _itemId) public {
         require(
-            productItems[_itemId].status == ProductStatus.Sold,
+            productItems[_itemId].status == ProductStatus.SOLD,
             'Product Item cannot be returned.'
         );
 
-        productItems[_itemId].status = ProductStatus.Returned;
+        productItems[_itemId].status = ProductStatus.RETURNED;
         emit ProductItemReturned(_itemId);
     }
 }
