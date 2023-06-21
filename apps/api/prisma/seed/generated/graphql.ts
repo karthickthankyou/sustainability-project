@@ -1,5 +1,5 @@
-import { gql } from '@apollo/client'
-import * as Apollo from '@apollo/client'
+/* eslint-disable */
+import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core'
 export type Maybe<T> = T | null
 export type InputMaybe<T> = Maybe<T>
 export type Exact<T extends { [key: string]: unknown }> = {
@@ -11,7 +11,6 @@ export type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
   [SubKey in K]: Maybe<T[SubKey]>
 }
-const defaultOptions = {} as const
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string
@@ -391,151 +390,188 @@ export type ProductsQuery = {
     updatedAt: any
     manufacturerId: string
   }> | null
-  productsCount: { __typename?: 'AggregateCountOutput'; count: number }
 }
 
-export const namedOperations = {
-  Query: {
-    manufacturers: 'manufacturers',
-    products: 'products',
-  },
-}
-
-export const ManufacturersDocument = /*#__PURE__*/ gql`
-  query manufacturers {
-    manufacturers {
-      id
-    }
-  }
-`
-
-/**
- * __useManufacturersQuery__
- *
- * To run a query within a React component, call `useManufacturersQuery` and pass it any options that fit your needs.
- * When your component renders, `useManufacturersQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useManufacturersQuery({
- *   variables: {
- *   },
- * });
- */
-export function useManufacturersQuery(
-  baseOptions?: Apollo.QueryHookOptions<
-    ManufacturersQuery,
-    ManufacturersQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useQuery<ManufacturersQuery, ManufacturersQueryVariables>(
-    ManufacturersDocument,
-    options,
-  )
-}
-export function useManufacturersLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    ManufacturersQuery,
-    ManufacturersQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useLazyQuery<ManufacturersQuery, ManufacturersQueryVariables>(
-    ManufacturersDocument,
-    options,
-  )
-}
-export type ManufacturersQueryHookResult = ReturnType<
-  typeof useManufacturersQuery
->
-export type ManufacturersLazyQueryHookResult = ReturnType<
-  typeof useManufacturersLazyQuery
->
-export type ManufacturersQueryResult = Apollo.QueryResult<
-  ManufacturersQuery,
-  ManufacturersQueryVariables
->
-export const ProductsDocument = /*#__PURE__*/ gql`
-  query products(
-    $distinct: [ProductScalarFieldEnum!]
-    $skip: Int
-    $take: Int
-    $cursor: ProductWhereUniqueInput
-    $orderBy: [ProductOrderByWithRelationInput!]
-    $where: ProductWhereInput
-  ) {
-    products(
-      distinct: $distinct
-      skip: $skip
-      take: $take
-      cursor: $cursor
-      orderBy: $orderBy
-      where: $where
-    ) {
-      id
-      name
-      plasticWeight
-      quantity
-      createdAt
-      updatedAt
-      manufacturerId
-    }
-    productsCount(where: $where) {
-      count
-    }
-  }
-`
-
-/**
- * __useProductsQuery__
- *
- * To run a query within a React component, call `useProductsQuery` and pass it any options that fit your needs.
- * When your component renders, `useProductsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useProductsQuery({
- *   variables: {
- *      distinct: // value for 'distinct'
- *      skip: // value for 'skip'
- *      take: // value for 'take'
- *      cursor: // value for 'cursor'
- *      orderBy: // value for 'orderBy'
- *      where: // value for 'where'
- *   },
- * });
- */
-export function useProductsQuery(
-  baseOptions?: Apollo.QueryHookOptions<ProductsQuery, ProductsQueryVariables>,
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useQuery<ProductsQuery, ProductsQueryVariables>(
-    ProductsDocument,
-    options,
-  )
-}
-export function useProductsLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    ProductsQuery,
-    ProductsQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useLazyQuery<ProductsQuery, ProductsQueryVariables>(
-    ProductsDocument,
-    options,
-  )
-}
-export type ProductsQueryHookResult = ReturnType<typeof useProductsQuery>
-export type ProductsLazyQueryHookResult = ReturnType<
-  typeof useProductsLazyQuery
->
-export type ProductsQueryResult = Apollo.QueryResult<
-  ProductsQuery,
-  ProductsQueryVariables
->
+export const ManufacturersDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'manufacturers' },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'manufacturers' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<ManufacturersQuery, ManufacturersQueryVariables>
+export const ProductsDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'products' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'distinct' },
+          },
+          type: {
+            kind: 'ListType',
+            type: {
+              kind: 'NonNullType',
+              type: {
+                kind: 'NamedType',
+                name: { kind: 'Name', value: 'ProductScalarFieldEnum' },
+              },
+            },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'skip' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'take' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'cursor' },
+          },
+          type: {
+            kind: 'NamedType',
+            name: { kind: 'Name', value: 'ProductWhereUniqueInput' },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'orderBy' },
+          },
+          type: {
+            kind: 'ListType',
+            type: {
+              kind: 'NonNullType',
+              type: {
+                kind: 'NamedType',
+                name: {
+                  kind: 'Name',
+                  value: 'ProductOrderByWithRelationInput',
+                },
+              },
+            },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'where' },
+          },
+          type: {
+            kind: 'NamedType',
+            name: { kind: 'Name', value: 'ProductWhereInput' },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'products' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'distinct' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'distinct' },
+                },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'skip' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'skip' },
+                },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'take' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'take' },
+                },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'cursor' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'cursor' },
+                },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'orderBy' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'orderBy' },
+                },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'where' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'where' },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'plasticWeight' },
+                },
+                { kind: 'Field', name: { kind: 'Name', value: 'quantity' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'createdAt' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'updatedAt' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'manufacturerId' },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<ProductsQuery, ProductsQueryVariables>

@@ -33,9 +33,5 @@ export const products = gql`
       updatedAt
       manufacturerId
     }
-
-    productsCount(where: $where) {
-      count
-    }
   }
 `

@@ -6,6 +6,10 @@ type Manufacturer {
   id: String!
 }
 
+type AggregateCountOutput {
+  count: Int!
+}
+
 type Product {
   id: String!
   createdAt: DateTime!
@@ -47,6 +51,7 @@ type Query {
   manufacturer(where: ManufacturerWhereUniqueInput): Manufacturer
   products(where: ProductWhereInput, orderBy: [ProductOrderByWithRelationInput!], cursor: ProductWhereUniqueInput, take: Int, skip: Int, distinct: [ProductScalarFieldEnum!]): [Product!]
   product(where: ProductWhereUniqueInput): Product
+  productsCount(where: ProductWhereInput): AggregateCountOutput!
   productItems(where: ProductItemWhereInput, orderBy: [ProductItemOrderByWithRelationInput!], cursor: ProductItemWhereUniqueInput, take: Int, skip: Int, distinct: [ProductItemScalarFieldEnum!]): [ProductItem!]
   productItem(where: ProductItemWhereUniqueInput): ProductItem
   transactions(where: TransactionWhereInput, orderBy: [TransactionOrderByWithRelationInput!], cursor: TransactionWhereUniqueInput, take: Int, skip: Int, distinct: [TransactionScalarFieldEnum!]): [Transaction!]

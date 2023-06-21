@@ -18,6 +18,7 @@
     "@sustainability-project/contract-utilities": "*",
     "@sustainability-project/forms": "*",
     "@sustainability-project/hooks": "*",
+    "@sustainability-project/network": "*",
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
     "@headlessui/react": "^1.7.13",
