@@ -5,9 +5,12 @@ import { GraphQLModule } from '@nestjs/graphql'
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo'
 import { join } from 'path'
 import { ConfigModule } from '@nestjs/config'
-import { SamplesModule } from './models/samples/samples.module'
 import { PolygonModule } from './polygon/polygon.module'
 import { PrismaModule } from './common/prisma/prisma.module'
+import { ManufacturersModule } from './models/manufacturers/manufacturers.module'
+import { ProductsModule } from './models/products/products.module'
+import { ProductItemsModule } from './models/product-items/product-items.module'
+import { TransactionsModule } from './models/transactions/transactions.module'
 
 @Module({
   imports: [
@@ -24,7 +27,10 @@ import { PrismaModule } from './common/prisma/prisma.module'
     PrismaModule,
     PolygonModule,
 
-    SamplesModule,
+    ManufacturersModule,
+    ProductsModule,
+    ProductItemsModule,
+    TransactionsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -2,11 +2,278 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type Sample {
+type Manufacturer {
+  id: String!
+}
+
+type Product {
+  id: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
   name: String!
+  quantity: Int!
+  plasticWeight: Int!
+  manufacturerId: String!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type ProductItem {
+  status: Status
+  id: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  productId: String!
+}
+
+enum Status {
+  MANUFACTURED
+  SOLD
+  RETURNED
+}
+
+type Transaction {
+  status: Status
+  id: Int!
+  createdAt: DateTime!
+  productItemId: String!
 }
 
 type Query {
-  samples: [Sample!]!
-  sample(id: Int!): Sample!
+  manufacturers(where: ManufacturerWhereInput, orderBy: [ManufacturerOrderByWithRelationInput!], cursor: ManufacturerWhereUniqueInput, take: Int, skip: Int, distinct: [ManufacturerScalarFieldEnum!]): [Manufacturer!]!
+  manufacturer(where: ManufacturerWhereUniqueInput): Manufacturer
+  products(where: ProductWhereInput, orderBy: [ProductOrderByWithRelationInput!], cursor: ProductWhereUniqueInput, take: Int, skip: Int, distinct: [ProductScalarFieldEnum!]): [Product!]
+  product(where: ProductWhereUniqueInput): Product
+  productItems(where: ProductItemWhereInput, orderBy: [ProductItemOrderByWithRelationInput!], cursor: ProductItemWhereUniqueInput, take: Int, skip: Int, distinct: [ProductItemScalarFieldEnum!]): [ProductItem!]
+  productItem(where: ProductItemWhereUniqueInput): ProductItem
+  transactions(where: TransactionWhereInput, orderBy: [TransactionOrderByWithRelationInput!], cursor: TransactionWhereUniqueInput, take: Int, skip: Int, distinct: [TransactionScalarFieldEnum!]): [Transaction!]
+  transaction(where: TransactionWhereUniqueInput): Transaction
+}
+
+input ManufacturerWhereInput {
+  id: StringFilter
+  products: ProductListRelationFilter
+  AND: [ManufacturerWhereInput!]
+  OR: [ManufacturerWhereInput!]
+  NOT: [ManufacturerWhereInput!]
+}
+
+input StringFilter {
+  equals: String
+  in: [String!]
+  notIn: [String!]
+  lt: String
+  lte: String
+  gt: String
+  gte: String
+  contains: String
+  startsWith: String
+  endsWith: String
+  not: String
+  mode: QueryMode
+}
+
+enum QueryMode {
+  default
+  insensitive
+}
+
+input ProductListRelationFilter {
+  every: ProductWhereInput
+  some: ProductWhereInput
+  none: ProductWhereInput
+}
+
+input ProductWhereInput {
+  id: StringFilter
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeFilter
+  name: StringFilter
+  quantity: IntFilter
+  plasticWeight: IntFilter
+  manufacturerId: StringFilter
+  manufacturer: ManufacturerRelationFilter
+  productItems: ProductItemListRelationFilter
+  AND: [ProductWhereInput!]
+  OR: [ProductWhereInput!]
+  NOT: [ProductWhereInput!]
+}
+
+input DateTimeFilter {
+  equals: String
+  in: [String!]
+  notIn: [String!]
+  lt: String
+  lte: String
+  gt: String
+  gte: String
+}
+
+input IntFilter {
+  equals: Int
+  in: Int
+  notIn: Int
+  lt: Int
+  lte: Int
+  gt: Int
+  gte: Int
+  not: Int
+}
+
+input ManufacturerRelationFilter {
+  is: ManufacturerWhereInput
+  isNot: ManufacturerWhereInput
+}
+
+input ProductItemListRelationFilter {
+  every: ProductItemWhereInput
+  some: ProductItemWhereInput
+  none: ProductItemWhereInput
+}
+
+input ProductItemWhereInput {
+  id: StringFilter
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeFilter
+  productId: StringFilter
+  status: EnumStatusFilter
+  product: ProductRelationFilter
+  transactions: TransactionListRelationFilter
+  AND: [ProductItemWhereInput!]
+  OR: [ProductItemWhereInput!]
+  NOT: [ProductItemWhereInput!]
+}
+
+input EnumStatusFilter {
+  equals: Status
+  in: [Status!]
+  notIn: [Status!]
+  not: Status
+}
+
+input ProductRelationFilter {
+  is: ProductWhereInput
+  isNot: ProductWhereInput
+}
+
+input TransactionListRelationFilter {
+  every: TransactionWhereInput
+  some: TransactionWhereInput
+  none: TransactionWhereInput
+}
+
+input TransactionWhereInput {
+  id: IntFilter
+  createdAt: DateTimeFilter
+  productItemId: StringFilter
+  status: EnumStatusFilter
+  productItem: ProductItemRelationFilter
+  AND: [TransactionWhereInput!]
+  OR: [TransactionWhereInput!]
+  NOT: [TransactionWhereInput!]
+}
+
+input ProductItemRelationFilter {
+  is: ProductItemWhereInput
+  isNot: ProductItemWhereInput
+}
+
+input ManufacturerOrderByWithRelationInput {
+  id: SortOrder
+  products: ProductOrderByRelationAggregateInput
+}
+
+enum SortOrder {
+  asc
+  desc
+}
+
+input ProductOrderByRelationAggregateInput {
+  _count: SortOrder
+}
+
+input ManufacturerWhereUniqueInput {
+  id: String
+}
+
+enum ManufacturerScalarFieldEnum {
+  id
+}
+
+input ProductOrderByWithRelationInput {
+  id: SortOrder
+  createdAt: SortOrder
+  updatedAt: SortOrder
+  name: SortOrder
+  quantity: SortOrder
+  plasticWeight: SortOrder
+  manufacturerId: SortOrder
+  manufacturer: ManufacturerOrderByWithRelationInput
+  productItems: ProductItemOrderByRelationAggregateInput
+}
+
+input ProductItemOrderByRelationAggregateInput {
+  _count: SortOrder
+}
+
+input ProductWhereUniqueInput {
+  id: String
+}
+
+enum ProductScalarFieldEnum {
+  id
+  createdAt
+  updatedAt
+  name
+  quantity
+  plasticWeight
+  manufacturerId
+}
+
+input ProductItemOrderByWithRelationInput {
+  id: SortOrder
+  createdAt: SortOrder
+  updatedAt: SortOrder
+  productId: SortOrder
+  status: SortOrder
+  product: ProductOrderByWithRelationInput
+  transactions: TransactionOrderByRelationAggregateInput
+}
+
+input TransactionOrderByRelationAggregateInput {
+  _count: SortOrder
+}
+
+input ProductItemWhereUniqueInput {
+  id: String
+}
+
+enum ProductItemScalarFieldEnum {
+  id
+  createdAt
+  updatedAt
+  productId
+  status
+}
+
+input TransactionOrderByWithRelationInput {
+  id: SortOrder
+  createdAt: SortOrder
+  productItemId: SortOrder
+  status: SortOrder
+  productItem: ProductItemOrderByWithRelationInput
+}
+
+input TransactionWhereUniqueInput {
+  id: Int
+}
+
+enum TransactionScalarFieldEnum {
+  id
+  createdAt
+  productItemId
+  status
 }
