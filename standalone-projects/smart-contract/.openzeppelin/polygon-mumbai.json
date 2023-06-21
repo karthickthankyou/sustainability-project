@@ -1,0 +1,224 @@
+{
+  "manifestVersion": "3.2",
+  "admin": {
+    "address": "0x5ea1806c46c9A9Cc670Bc96303D0552cF47Ef1E4",
+    "txHash": "0xc4360f105e285610549514e2d61b9eb9f54a1f51a978f62525ef337e432ddd4b"
+  },
+  "proxies": [
+    {
+      "address": "0xd297c904d5AB5fD816eA5d22A7E1798ecc230E8f",
+      "txHash": "0x72ef1b6374c86af6276ef282ae34bab5b63285141ba7ebaa41f9147431d718f8",
+      "kind": "transparent"
+    },
+    {
+      "address": "0xD189B5E45768919bB9Bd8e5EC796A17Ae97daB08",
+      "txHash": "0x207ac374ec98f87a8c4ba2a22c19ac14efc03284ba0b0100259752d0601321c4",
+      "kind": "transparent"
+    },
+    {
+      "address": "0x6b13232D1f32b37911A177877fd5709151692467",
+      "txHash": "0x0436d1d38ce9581f50c8d048bdf41eeccf18226d6d3d2d384debc3097c0c6e2f",
+      "kind": "transparent"
+    },
+    {
+      "address": "0xD8e075e187BB8752Ea5640e1d37Ff3506aBd6428",
+      "txHash": "0x0dff68b573ce1c442db0ce66ea63fc3e67442c74397f2dfe34e3f2ed7cab7c53",
+      "kind": "transparent"
+    },
+    {
+      "address": "0xFf8C63F0467Ab65D074d8985ffC56027fd7A5393",
+      "txHash": "0x7451a48c0b80dda5066942c327f472968c8e8977071d766730f961872f135f2b",
+      "kind": "transparent"
+    },
+    {
+      "address": "0xB28373A23818daCC99F8FD71D738b89Ca3bB9d6D",
+      "txHash": "0x119d31d161dfced04bba17b2656f15d82e71f0aac64588bd227f617e0e975c1b",
+      "kind": "transparent"
+    },
+    {
+      "address": "0x501c08F5DD968D136B9728F8A646B400a4DEd289",
+      "txHash": "0x04c2822f90ba045e33c146c6547a7d4d18aa6992474ea540384beffafdc83295",
+      "kind": "transparent"
+    },
+    {
+      "address": "0x34Ef8114650F886EC825935E34d910E99F5E6A16",
+      "txHash": "0x5d9680a604cee3572a577c45439dac1825a8a1382f54db2a7461ef38d6cf08b9",
+      "kind": "transparent"
+    },
+    {
+      "address": "0x99A8628e555A185635e6E3a7E0cDaE5c9bA49fAF",
+      "txHash": "0x484a286ab74e55d3e2a3bf08430a6f1ee931c27383ff90d54a411eeab7125f57",
+      "kind": "transparent"
+    },
+    {
+      "address": "0x9Ed75D5DB9F219212673aF704D8d651C85E9f845",
+      "txHash": "0x435b341d5384920314d38c09ee6bfc20e2309907a27b5bded70a8603a7a7e621",
+      "kind": "transparent"
+    }
+  ],
+  "impls": {
+    "1e13053e4f90fc47914c25a3a190d441a0bedbe0b94a6b3f4bc6c871b80c25eb": {
+      "address": "0x39bD68F19cf5aE54FA29644A845f668DFc8F0dC7",
+      "txHash": "0x9d898f0d41a9a386b68057671cc5f3fa4e256951dd7beaecf793e126557349eb",
+      "layout": {
+        "solcVersion": "0.8.18",
+        "storage": [
+          {
+            "label": "_initialized",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_uint8",
+            "contract": "Initializable",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:63",
+            "retypedFrom": "bool"
+          },
+          {
+            "label": "_initializing",
+            "offset": 1,
+            "slot": "0",
+            "type": "t_bool",
+            "contract": "Initializable",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:68"
+          },
+          {
+            "label": "productCounter",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_uint256",
+            "contract": "SustainabilityProject",
+            "src": "contracts/SustainabilityProject.sol:6"
+          },
+          {
+            "label": "products",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_mapping(t_uint256,t_struct(Product)528_storage)",
+            "contract": "SustainabilityProject",
+            "src": "contracts/SustainabilityProject.sol:31"
+          },
+          {
+            "label": "productItems",
+            "offset": 0,
+            "slot": "3",
+            "type": "t_mapping(t_string_memory_ptr,t_struct(ProductItem)536_storage)",
+            "contract": "SustainabilityProject",
+            "src": "contracts/SustainabilityProject.sol:32"
+          },
+          {
+            "label": "inventory",
+            "offset": 0,
+            "slot": "4",
+            "type": "t_mapping(t_address,t_array(t_string_storage)dyn_storage)",
+            "contract": "SustainabilityProject",
+            "src": "contracts/SustainabilityProject.sol:33"
+          }
+        ],
+        "types": {
+          "t_address": {
+            "label": "address",
+            "numberOfBytes": "20"
+          },
+          "t_array(t_string_storage)dyn_storage": {
+            "label": "string[]",
+            "numberOfBytes": "32"
+          },
+          "t_bool": {
+            "label": "bool",
+            "numberOfBytes": "1"
+          },
+          "t_enum(ProductStatus)519": {
+            "label": "enum SustainabilityProject.ProductStatus",
+            "members": [
+              "Manufactured",
+              "Sold",
+              "Returned"
+            ],
+            "numberOfBytes": "1"
+          },
+          "t_mapping(t_address,t_array(t_string_storage)dyn_storage)": {
+            "label": "mapping(address => string[])",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_string_memory_ptr,t_struct(ProductItem)536_storage)": {
+            "label": "mapping(string => struct SustainabilityProject.ProductItem)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_uint256,t_struct(Product)528_storage)": {
+            "label": "mapping(uint256 => struct SustainabilityProject.Product)",
+            "numberOfBytes": "32"
+          },
+          "t_string_memory_ptr": {
+            "label": "string",
+            "numberOfBytes": "32"
+          },
+          "t_string_storage": {
+            "label": "string",
+            "numberOfBytes": "32"
+          },
+          "t_struct(Product)528_storage": {
+            "label": "struct SustainabilityProject.Product",
+            "members": [
+              {
+                "label": "id",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "name",
+                "type": "t_string_storage",
+                "offset": 0,
+                "slot": "1"
+              },
+              {
+                "label": "plasticWeight",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "2"
+              },
+              {
+                "label": "itemCount",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "3"
+              }
+            ],
+            "numberOfBytes": "128"
+          },
+          "t_struct(ProductItem)536_storage": {
+            "label": "struct SustainabilityProject.ProductItem",
+            "members": [
+              {
+                "label": "id",
+                "type": "t_string_storage",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "productId",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "1"
+              },
+              {
+                "label": "status",
+                "type": "t_enum(ProductStatus)519",
+                "offset": 0,
+                "slot": "2"
+              }
+            ],
+            "numberOfBytes": "96"
+          },
+          "t_uint256": {
+            "label": "uint256",
+            "numberOfBytes": "32"
+          },
+          "t_uint8": {
+            "label": "uint8",
+            "numberOfBytes": "1"
+          }
+        }
+      }
+    }
+  }
+}
