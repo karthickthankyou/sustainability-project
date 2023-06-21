@@ -4,8 +4,10 @@ import '@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol';
 
 contract SustainabilityProject is Initializable {
     uint256 public productCounter;
+    address payable public owner;
 
     function initialize() public initializer {
+        owner = payable(msg.sender);
         productCounter = 0;
     }
 

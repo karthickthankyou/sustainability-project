@@ -4,7 +4,7 @@ import { FormProvider, useForm } from 'react-hook-form'
 import { z } from 'zod'
 
 export const schemaCreateProduct = z.object({
-  name: z.string(),
+  name: z.string().min(1),
   plasticWeight: z.number(),
 })
 

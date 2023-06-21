@@ -1,5 +1,5 @@
 {
-  "contractAddress": "0x9043dCE1B94168416Eff94347Fa7E54d31888275",
+  "contractAddress": "0xFf1E30fbc30d6d5Fd8630d9E0Cd904F48a8903fb",
   "abi": [
     {
       "anonymous": false,
@@ -152,6 +152,19 @@
           "internalType": "string",
           "name": "",
           "type": "string"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "owner",
+      "outputs": [
+        {
+          "internalType": "address payable",
+          "name": "",
+          "type": "address"
         }
       ],
       "stateMutability": "view",
