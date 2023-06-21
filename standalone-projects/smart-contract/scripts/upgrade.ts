@@ -1,6 +1,6 @@
 const { ethers, upgrades, artifacts } = require('hardhat')
 const { saveContractInfo } = require('../util/saveContractInfo.js')
-const { contractAddress } = require('../contractAddress.json')
+const { contractAddress } = require('../contractInfo.json')
 
 async function upgrade() {
   const [deployer] = await ethers.getSigners()

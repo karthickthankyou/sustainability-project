@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.0;
 import '@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol';
+import '@openzeppelin/contracts/utils/Strings.sol';
 
 contract SustainabilityProject is Initializable {
     uint256 public productCounter;
@@ -41,6 +42,7 @@ contract SustainabilityProject is Initializable {
         uint256 plasticWeight,
         address manufacturer
     );
+    event ProductQuantityUpdated(uint256 productId, uint256 quantity);
     event ProductItemAdded(string itemId, uint256 productId);
     event ProductItemSold(string itemId);
     event ProductItemReturned(string itemId);
@@ -75,12 +77,10 @@ contract SustainabilityProject is Initializable {
 
         for (uint256 i = 0; i < _quantity; i++) {
             products[_productId].itemCount++;
-            string memory itemId = string(
-                abi.encodePacked(
-                    _productId,
-                    '-',
-                    products[_productId].itemCount
-                )
+            string memory itemId = string.concat(
+                Strings.toString(_productId),
+                '-',
+                Strings.toString(products[_productId].itemCount)
             );
 
             ProductItem memory newItem = ProductItem({
@@ -93,6 +93,7 @@ contract SustainabilityProject is Initializable {
             inventory[msg.sender].push(itemId);
             emit ProductItemAdded(itemId, _productId);
         }
+        emit ProductQuantityUpdated(_productId, products[_productId].itemCount);
     }
 
     function sellProductItem(string memory _itemId) public {

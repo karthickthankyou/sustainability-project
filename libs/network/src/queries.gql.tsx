@@ -32,6 +32,8 @@ export const products = gql`
       createdAt
       updatedAt
       manufacturerId
+      returnedCount
+      soldCount
     }
 
     productsCount(where: $where) {

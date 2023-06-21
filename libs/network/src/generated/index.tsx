@@ -95,6 +95,8 @@ export type Product = {
   name: Scalars['String']
   plasticWeight: Scalars['Int']
   quantity: Scalars['Int']
+  returnedCount: Scalars['Int']
+  soldCount: Scalars['Int']
   updatedAt: Scalars['DateTime']
 }
 
@@ -390,6 +392,8 @@ export type ProductsQuery = {
     createdAt: any
     updatedAt: any
     manufacturerId: string
+    returnedCount: number
+    soldCount: number
   }> | null
   productsCount: { __typename?: 'AggregateCountOutput'; count: number }
 }
@@ -482,6 +486,8 @@ export const ProductsDocument = /*#__PURE__*/ gql`
       createdAt
       updatedAt
       manufacturerId
+      returnedCount
+      soldCount
     }
     productsCount(where: $where) {
       count

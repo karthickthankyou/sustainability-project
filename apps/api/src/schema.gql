@@ -18,6 +18,8 @@ type Product {
   quantity: Int!
   plasticWeight: Int!
   manufacturerId: String!
+  soldCount: Int!
+  returnedCount: Int!
 }
 
 """

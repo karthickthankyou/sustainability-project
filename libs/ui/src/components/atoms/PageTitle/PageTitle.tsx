@@ -5,5 +5,5 @@ export interface IPageTitleProps {
 }
 
 export const PageTitle = ({ children }: IPageTitleProps) => {
-  return <h1 className="pt-2 mb-4 text-lg font-bold">{children}</h1>
+  return <h1 className="text-lg font-bold ">{children}</h1>
 }

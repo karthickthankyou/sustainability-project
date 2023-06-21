@@ -1,10 +1,11 @@
-import { Resolver, Query, Args } from '@nestjs/graphql'
+import { Resolver, Query, Args, ResolveField, Parent } from '@nestjs/graphql'
 import { ProductsService } from './products.service'
 import { Product } from './entities/product.entity'
 import { FindManyProductArgs, FindUniqueProductArgs } from './dto/find.args'
 import { AggregateCountOutput } from 'src/common/dtos/common.input'
 import { ProductWhereInput } from './dto/where.args'
 import { PrismaService } from 'src/common/prisma/prisma.service'
+import { Status } from '@prisma/client'
 
 @Resolver(() => Product)
 export class ProductsResolver {
@@ -35,5 +36,27 @@ export class ProductsResolver {
       where,
     })
     return { count: votes._count._all }
+  }
+
+  @ResolveField(() => Number, {
+    name: 'soldCount',
+  })
+  async soldCount(@Parent() parent: Product) {
+    const products = await this.prisma.productItem.aggregate({
+      _count: { _all: true },
+      where: { status: Status.SOLD, productId: parent.id },
+    })
+    return products._count._all
+  }
+
+  @ResolveField(() => Number, {
+    name: 'returnedCount',
+  })
+  async returnedCount(@Parent() parent: Product) {
+    const products = await this.prisma.productItem.aggregate({
+      _count: { _all: true },
+      where: { status: Status.RETURNED, productId: parent.id },
+    })
+    return products._count._all
   }
 }

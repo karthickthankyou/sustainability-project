@@ -28,7 +28,7 @@ export async function createProduct({
   }
 }
 
-export async function createProductItems({
+export async function addProductItems({
   contract,
   account,
   payload: { productId, quantity },

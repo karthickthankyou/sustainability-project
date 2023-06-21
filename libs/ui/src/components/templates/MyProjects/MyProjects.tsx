@@ -3,8 +3,11 @@ import { PageTitle } from '../../atoms/PageTitle'
 import { ShowData } from '../../organisms/ShowData'
 import { CreateProduct } from '../CreateProduct'
 import { useTakeSkip } from '@sustainability-project/hooks'
-import { useProductsQuery } from '@sustainability-project/network/src/generated'
+import { useProductsLazyQuery } from '@sustainability-project/network/src/generated'
 import { ProductCard } from '../../organisms/ProductCard'
+import { PlainButton } from '../../atoms/PlainButton'
+import { IconRefresh } from '@tabler/icons-react'
+import { useEffect } from 'react'
 
 export interface IMyProjectsProps {}
 
@@ -12,13 +15,28 @@ export const MyProjects = ({}: IMyProjectsProps) => {
   const { account } = useAccount()
 
   const { setSkip, setTake, skip, take } = useTakeSkip()
-  const { data, loading } = useProductsQuery({
+  const [getProducts, { data, loading }] = useProductsLazyQuery({
     variables: { take, skip, where: { manufacturerId: { equals: account } } },
   })
+
+  useEffect(() => {
+    getProducts()
+  }, [])
   return (
     <div>
       <div className="flex items-start justify-between">
-        <PageTitle>My projects</PageTitle>
+        <div className="flex items-center gap-2 mt-2 mb-4">
+          <PageTitle>My products</PageTitle>
+          <PlainButton
+            onClick={() => {
+              getProducts()
+            }}
+          >
+            <IconRefresh
+              className={`${loading ? 'animate-spin-reverse' : null} w-4 h-4`}
+            />
+          </PlainButton>
+        </div>
         <CreateProduct />
       </div>
       <ShowData
@@ -31,6 +49,7 @@ export const MyProjects = ({}: IMyProjectsProps) => {
           skip,
           take,
         }}
+        className="grid gap-12 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 "
       >
         {data?.products?.map((product) => (
           <ProductCard key={product.id} product={product} />

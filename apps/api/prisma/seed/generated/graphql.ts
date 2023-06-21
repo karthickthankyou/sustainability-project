@@ -94,6 +94,8 @@ export type Product = {
   name: Scalars['String']
   plasticWeight: Scalars['Int']
   quantity: Scalars['Int']
+  returnedCount: Scalars['Int']
+  soldCount: Scalars['Int']
   updatedAt: Scalars['DateTime']
 }
 

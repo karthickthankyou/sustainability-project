@@ -87,11 +87,11 @@ export class PolygonService {
         },
         async (error, event) => {
           const { itemId, productId } = event.returnValues
+          console.log('ProductItemAdded ', event.returnValues)
+
           await this.prisma.productItem.create({
             data: { id: itemId, status: Status.MANUFACTURED, productId },
           })
-
-          console.log('ProductItemAdded ', event.returnValues)
         },
       )
       .on('connected', (str) =>
@@ -143,6 +143,29 @@ export class PolygonService {
       )
       .on('connected', (str) =>
         console.log('💁‍♂️ Event:ProductItemReturned listening...', str),
+      )
+      .on('error', console.error)
+
+    /*
+     * Event: ProductQuantityUpdated
+     */
+    this.contract.events
+      .ProductQuantityUpdated(
+        {
+          fromBlock: 'latest',
+        },
+        async (error, event) => {
+          console.log('ProductQuantityUpdated ', event.returnValues)
+          const { productId, quantity } = event.returnValues
+
+          await this.prisma.product.update({
+            data: { quantity: +quantity },
+            where: { id: productId },
+          })
+        },
+      )
+      .on('connected', (str) =>
+        console.log('💁‍♂️ Event:ProductQuantityUpdated listening...', str),
       )
       .on('error', console.error)
   }

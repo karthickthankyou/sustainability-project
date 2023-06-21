@@ -1,5 +1,5 @@
 {
-  "contractAddress": "0xFf1E30fbc30d6d5Fd8630d9E0Cd904F48a8903fb",
+  "contractAddress": "0x9B2c27410eae0D232ee5c8ec4EeA01440E6e16Ac",
   "abi": [
     {
       "anonymous": false,
@@ -88,6 +88,25 @@
         }
       ],
       "name": "ProductItemSold",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "productId",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "quantity",
+          "type": "uint256"
+        }
+      ],
+      "name": "ProductQuantityUpdated",
       "type": "event"
     },
     {

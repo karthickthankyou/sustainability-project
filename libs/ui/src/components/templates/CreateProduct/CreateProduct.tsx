@@ -7,7 +7,7 @@ import { useAsync } from '@sustainability-project/hooks/async'
 import { createProduct } from '@sustainability-project/contract-utilities'
 import { useAccount } from '@sustainability-project/hooks/web3'
 import { Dialog } from '../../atoms/Dialog'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { PlainButton } from '../../atoms/PlainButton'
 import { IconPlus } from '@tabler/icons-react'
 
@@ -17,12 +17,19 @@ export const CreateProduct = ({}: ICreateProductProps) => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useFormCreateProduct()
   const { contract, account } = useAccount()
 
   const [{ data, loading, error }, createProductFunction] =
     useAsync(createProduct)
+
+  useEffect(() => {
+    if (data) {
+      reset()
+    }
+  }, [data])
   console.log('errors', errors)
   const [open, setOpen] = useState(false)
   return (
@@ -42,7 +49,7 @@ export const CreateProduct = ({}: ICreateProductProps) => {
             }
 
             console.log(name, plasticWeight)
-            createProductFunction({
+            await createProductFunction({
               account,
               contract,
               payload: {
@@ -72,6 +79,9 @@ export const CreateProduct = ({}: ICreateProductProps) => {
           >
             Create
           </Button>
+          <div className="mt-2">
+            {data ? 'Product created successfully.' : null}
+          </div>
         </Form>
       </Dialog>
     </div>
