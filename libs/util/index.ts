@@ -36,7 +36,7 @@ export const filterMenuItems = ({
 }
 
 export const MENUITEMS: MenuItem[] = [
-  { label: 'About', href: '/about' },
+  { label: 'Transactions', href: '/transactions', loggedIn: true },
   { label: 'Sell item', href: '/sell-item', loggedIn: true },
   { label: 'Return item', href: '/return-item', loggedIn: true },
   { label: 'Admin', href: '/admin', loggedIn: true, admin: true },
@@ -44,6 +44,6 @@ export const MENUITEMS: MenuItem[] = [
 export const SUBMENUITEMS: MenuItem[] = [
   ...MENUITEMS,
   { label: 'My products', href: '/my-products', loggedIn: true },
-  { label: 'Reports', href: '/reports', loggedIn: true },
+  { label: 'About', href: '/about' },
   { label: 'Settings', href: '/settings', loggedIn: false },
 ]

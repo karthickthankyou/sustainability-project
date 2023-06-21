@@ -1,5 +1,5 @@
-export interface ITableProps {}
+import MuiTable, { TableProps } from '@mui/material/Table'
 
-export const Table = ({}: ITableProps) => {
-  return <div>Hello, This is Table component!</div>
+export const Table = (props: TableProps) => {
+  return <MuiTable {...props} />
 }

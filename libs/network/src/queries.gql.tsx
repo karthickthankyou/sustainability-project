@@ -41,3 +41,37 @@ export const products = gql`
     }
   }
 `
+
+export const transactions = gql`
+  query Transactions(
+    $distinct: [TransactionScalarFieldEnum!]
+    $skip: Int
+    $take: Int
+    $cursor: TransactionWhereUniqueInput
+    $orderBy: [TransactionOrderByWithRelationInput!]
+    $where: TransactionWhereInput
+  ) {
+    transactions(
+      distinct: $distinct
+      skip: $skip
+      take: $take
+      cursor: $cursor
+      orderBy: $orderBy
+      where: $where
+    ) {
+      createdAt
+      id
+      productItemId
+      status
+      productItem {
+        product {
+          name
+        }
+      }
+    }
+
+    transactionsCount(where: $where) {
+      count
+    }
+  }
+`

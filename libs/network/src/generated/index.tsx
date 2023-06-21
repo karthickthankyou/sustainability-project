@@ -104,6 +104,7 @@ export type ProductItem = {
   __typename?: 'ProductItem'
   createdAt: Scalars['DateTime']
   id: Scalars['String']
+  product: Product
   productId: Scalars['String']
   status?: Maybe<Status>
   updatedAt: Scalars['DateTime']
@@ -226,6 +227,7 @@ export type Query = {
   productsCount: AggregateCountOutput
   transaction?: Maybe<Transaction>
   transactions?: Maybe<Array<Transaction>>
+  transactionsCount: AggregateCountOutput
 }
 
 export type QueryManufacturerArgs = {
@@ -284,6 +286,10 @@ export type QueryTransactionsArgs = {
   where?: InputMaybe<TransactionWhereInput>
 }
 
+export type QueryTransactionsCountArgs = {
+  where?: InputMaybe<TransactionWhereInput>
+}
+
 export enum QueryMode {
   Default = 'default',
   Insensitive = 'insensitive',
@@ -319,6 +325,7 @@ export type Transaction = {
   __typename?: 'Transaction'
   createdAt: Scalars['DateTime']
   id: Scalars['Int']
+  productItem: ProductItem
   productItemId: Scalars['String']
   status?: Maybe<Status>
 }
@@ -398,10 +405,41 @@ export type ProductsQuery = {
   productsCount: { __typename?: 'AggregateCountOutput'; count: number }
 }
 
+export type TransactionsQueryVariables = Exact<{
+  distinct?: InputMaybe<
+    Array<TransactionScalarFieldEnum> | TransactionScalarFieldEnum
+  >
+  skip?: InputMaybe<Scalars['Int']>
+  take?: InputMaybe<Scalars['Int']>
+  cursor?: InputMaybe<TransactionWhereUniqueInput>
+  orderBy?: InputMaybe<
+    | Array<TransactionOrderByWithRelationInput>
+    | TransactionOrderByWithRelationInput
+  >
+  where?: InputMaybe<TransactionWhereInput>
+}>
+
+export type TransactionsQuery = {
+  __typename?: 'Query'
+  transactions?: Array<{
+    __typename?: 'Transaction'
+    createdAt: any
+    id: number
+    productItemId: string
+    status?: Status | null
+    productItem: {
+      __typename?: 'ProductItem'
+      product: { __typename?: 'Product'; name: string }
+    }
+  }> | null
+  transactionsCount: { __typename?: 'AggregateCountOutput'; count: number }
+}
+
 export const namedOperations = {
   Query: {
     manufacturers: 'manufacturers',
     products: 'products',
+    Transactions: 'Transactions',
   },
 }
 
@@ -544,4 +582,92 @@ export type ProductsLazyQueryHookResult = ReturnType<
 export type ProductsQueryResult = Apollo.QueryResult<
   ProductsQuery,
   ProductsQueryVariables
+>
+export const TransactionsDocument = /*#__PURE__*/ gql`
+  query Transactions(
+    $distinct: [TransactionScalarFieldEnum!]
+    $skip: Int
+    $take: Int
+    $cursor: TransactionWhereUniqueInput
+    $orderBy: [TransactionOrderByWithRelationInput!]
+    $where: TransactionWhereInput
+  ) {
+    transactions(
+      distinct: $distinct
+      skip: $skip
+      take: $take
+      cursor: $cursor
+      orderBy: $orderBy
+      where: $where
+    ) {
+      createdAt
+      id
+      productItemId
+      status
+      productItem {
+        product {
+          name
+        }
+      }
+    }
+    transactionsCount(where: $where) {
+      count
+    }
+  }
+`
+
+/**
+ * __useTransactionsQuery__
+ *
+ * To run a query within a React component, call `useTransactionsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useTransactionsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useTransactionsQuery({
+ *   variables: {
+ *      distinct: // value for 'distinct'
+ *      skip: // value for 'skip'
+ *      take: // value for 'take'
+ *      cursor: // value for 'cursor'
+ *      orderBy: // value for 'orderBy'
+ *      where: // value for 'where'
+ *   },
+ * });
+ */
+export function useTransactionsQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    TransactionsQuery,
+    TransactionsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<TransactionsQuery, TransactionsQueryVariables>(
+    TransactionsDocument,
+    options,
+  )
+}
+export function useTransactionsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    TransactionsQuery,
+    TransactionsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<TransactionsQuery, TransactionsQueryVariables>(
+    TransactionsDocument,
+    options,
+  )
+}
+export type TransactionsQueryHookResult = ReturnType<
+  typeof useTransactionsQuery
+>
+export type TransactionsLazyQueryHookResult = ReturnType<
+  typeof useTransactionsLazyQuery
+>
+export type TransactionsQueryResult = Apollo.QueryResult<
+  TransactionsQuery,
+  TransactionsQueryVariables
 >

@@ -103,6 +103,7 @@ export type ProductItem = {
   __typename?: 'ProductItem'
   createdAt: Scalars['DateTime']
   id: Scalars['String']
+  product: Product
   productId: Scalars['String']
   status?: Maybe<Status>
   updatedAt: Scalars['DateTime']
@@ -225,6 +226,7 @@ export type Query = {
   productsCount: AggregateCountOutput
   transaction?: Maybe<Transaction>
   transactions?: Maybe<Array<Transaction>>
+  transactionsCount: AggregateCountOutput
 }
 
 export type QueryManufacturerArgs = {
@@ -283,6 +285,10 @@ export type QueryTransactionsArgs = {
   where?: InputMaybe<TransactionWhereInput>
 }
 
+export type QueryTransactionsCountArgs = {
+  where?: InputMaybe<TransactionWhereInput>
+}
+
 export enum QueryMode {
   Default = 'default',
   Insensitive = 'insensitive',
@@ -318,6 +324,7 @@ export type Transaction = {
   __typename?: 'Transaction'
   createdAt: Scalars['DateTime']
   id: Scalars['Int']
+  productItem: ProductItem
   productItemId: Scalars['String']
   status?: Maybe<Status>
 }

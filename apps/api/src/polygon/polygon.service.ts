@@ -92,6 +92,13 @@ export class PolygonService {
           await this.prisma.productItem.create({
             data: { id: itemId, status: Status.MANUFACTURED, productId },
           })
+
+          await this.prisma.transaction.create({
+            data: {
+              status: Status.MANUFACTURED,
+              productItemId: itemId,
+            },
+          })
         },
       )
       .on('connected', (str) =>
@@ -115,6 +122,13 @@ export class PolygonService {
             where: { id: itemId },
           })
 
+          await this.prisma.transaction.create({
+            data: {
+              status: Status.SOLD,
+              productItemId: itemId,
+            },
+          })
+
           console.log('ProductItemSold ', event.returnValues)
         },
       )
@@ -132,13 +146,17 @@ export class PolygonService {
           fromBlock: 'latest',
         },
         async (error, event) => {
+          console.log('ProductItemReturned ', event.returnValues)
           const { itemId } = event.returnValues
 
           await this.prisma.productItem.update({
             data: { status: Status.RETURNED },
             where: { id: itemId },
           })
-          console.log('ProductItemReturned ', event.returnValues)
+
+          await this.prisma.transaction.create({
+            data: { status: Status.RETURNED, productItemId: itemId },
+          })
         },
       )
       .on('connected', (str) =>

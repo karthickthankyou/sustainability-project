@@ -1,14 +1,19 @@
-import { Resolver, Query, Args } from '@nestjs/graphql'
+import { Resolver, Query, Args, ResolveField, Parent } from '@nestjs/graphql'
 import { ProductItemsService } from './product-items.service'
 import { ProductItem } from './entities/product-item.entity'
 import {
   FindManyProductItemArgs,
   FindUniqueProductItemArgs,
 } from './dto/find.args'
+import { PrismaService } from 'src/common/prisma/prisma.service'
+import { Product } from '../products/entities/product.entity'
 
 @Resolver(() => ProductItem)
 export class ProductItemsResolver {
-  constructor(private readonly productItemsService: ProductItemsService) {}
+  constructor(
+    private readonly productItemsService: ProductItemsService,
+    private readonly prisma: PrismaService,
+  ) {}
 
   @Query(() => [ProductItem], { name: 'productItems', nullable: true })
   findAll(@Args() args: FindManyProductItemArgs) {
@@ -18,5 +23,15 @@ export class ProductItemsResolver {
   @Query(() => ProductItem, { name: 'productItem', nullable: true })
   findOne(@Args() args: FindUniqueProductItemArgs) {
     return this.productItemsService.findOne(args)
+  }
+
+  @ResolveField(() => Product, {
+    name: 'product',
+  })
+  async product(@Parent() parent: ProductItem) {
+    const item = await this.prisma.product.findUnique({
+      where: { id: parent.productId },
+    })
+    return item
   }
 }

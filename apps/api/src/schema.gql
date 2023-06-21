@@ -33,6 +33,7 @@ type ProductItem {
   createdAt: DateTime!
   updatedAt: DateTime!
   productId: String!
+  product: Product!
 }
 
 enum Status {
@@ -46,6 +47,7 @@ type Transaction {
   id: Int!
   createdAt: DateTime!
   productItemId: String!
+  productItem: ProductItem!
 }
 
 type Query {
@@ -58,6 +60,7 @@ type Query {
   productItem(where: ProductItemWhereUniqueInput): ProductItem
   transactions(where: TransactionWhereInput, orderBy: [TransactionOrderByWithRelationInput!], cursor: TransactionWhereUniqueInput, take: Int, skip: Int, distinct: [TransactionScalarFieldEnum!]): [Transaction!]
   transaction(where: TransactionWhereUniqueInput): Transaction
+  transactionsCount(where: TransactionWhereInput): AggregateCountOutput!
 }
 
 input ManufacturerWhereInput {
