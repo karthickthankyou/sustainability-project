@@ -4,6 +4,13 @@ export const manufacturers = gql`
   query manufacturers {
     manufacturers {
       id
+      manufacturedCount
+      soldCount
+      returnedCount
+      createdAt
+    }
+    manufacturersCount {
+      count
     }
   }
 `

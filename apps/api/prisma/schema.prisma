@@ -11,8 +11,9 @@ datasource db {
 }
 
 model Manufacturer {
-    id       String    @unique
-    products Product[]
+    id        String    @unique
+    createdAt DateTime  @default(now())
+    products  Product[]
 }
 
 model Product {

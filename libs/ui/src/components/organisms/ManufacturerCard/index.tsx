@@ -1,0 +1,1 @@
+export { ManufacturerCard } from './ManufacturerCard'

@@ -1,0 +1,1 @@
+export { Manufacturers } from './Manufacturers'

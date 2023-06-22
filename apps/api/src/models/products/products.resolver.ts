@@ -31,11 +31,11 @@ export class ProductsResolver {
     @Args('where', { nullable: true })
     where: ProductWhereInput,
   ) {
-    const votes = await this.prisma.product.aggregate({
+    const products = await this.prisma.product.aggregate({
       _count: { _all: true },
       where,
     })
-    return { count: votes._count._all }
+    return { count: products._count._all }
   }
 
   @ResolveField(() => Number, {

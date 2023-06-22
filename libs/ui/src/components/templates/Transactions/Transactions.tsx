@@ -1,5 +1,8 @@
 import { useTakeSkip } from '@sustainability-project/hooks'
-import { useTransactionsLazyQuery } from '@sustainability-project/network/src/generated'
+import {
+  Status,
+  useTransactionsLazyQuery,
+} from '@sustainability-project/network/src/generated'
 import { useEffect, useState } from 'react'
 import { ShowData } from '../../organisms/ShowData'
 import { format } from 'date-fns'
@@ -7,6 +10,9 @@ import { Pagination } from '../../molecules/Pagination'
 import { HtmlLabel } from '../../atoms/HtmlLabel'
 import { HtmlInput } from '../../atoms/HtmlInput'
 import { PlainButton } from '../../atoms/PlainButton'
+import { useDebouncedValue } from '@sustainability-project/hooks/async'
+import { PageTitle } from '../../atoms/PageTitle'
+import { StatusBadge } from '../../organisms/StatusBadge'
 
 export interface ITransactionsProps {}
 
@@ -14,10 +20,12 @@ export const Transactions = ({}: ITransactionsProps) => {
   const [searchText, setSearchText] = useState('')
   const { setSkip, setTake, skip, take } = useTakeSkip()
 
-  const whereCondition = searchText
+  const debouncedSearchText = useDebouncedValue(searchText, 300)
+
+  const whereCondition = debouncedSearchText
     ? {
         productItem: {
-          is: { id: { equals: searchText } },
+          is: { id: { equals: debouncedSearchText } },
         },
       }
     : null
@@ -35,7 +43,8 @@ export const Transactions = ({}: ITransactionsProps) => {
   }, [])
   return (
     <div>
-      <div className="max-w-lg mx-auto mt-8">
+      <PageTitle>All transactions</PageTitle>
+      <div className="max-w-md my-2">
         <HtmlLabel title="Search item id">
           <HtmlInput
             value={searchText}
@@ -44,13 +53,13 @@ export const Transactions = ({}: ITransactionsProps) => {
           />
         </HtmlLabel>
       </div>
-      <table className="w-full mt-8 border-separate border-spacing-2">
+      <table className="w-full mt-8 border-separate border-spacing-y-2">
         <tr>
-          <th>ID</th>
-          <th>Item ID</th>
-          <th>Date</th>
-          <th>Name</th>
-          <th>Status</th>
+          <th className="text-left">ID</th>
+          <th className="text-center">Item ID</th>
+          <th className="text-center">Date</th>
+          <th className="text-center">Name</th>
+          <th className="text-right">Status</th>
         </tr>
         {data?.transactions?.length === 0 ? (
           <tr className="text-center ">
@@ -72,7 +81,7 @@ export const Transactions = ({}: ITransactionsProps) => {
 
         {data?.transactions?.map((transaction) => (
           <tr key={transaction.id}>
-            <td className="text-center">{transaction.id}</td>
+            <td>{transaction.id}</td>
             <td className="text-center">{transaction.productItemId}</td>
             <td className="text-center">
               {format(new Date(transaction.createdAt), 'PPp')}
@@ -80,7 +89,9 @@ export const Transactions = ({}: ITransactionsProps) => {
             <td className="text-center">
               {transaction.productItem.product.name}
             </td>
-            <td className="text-center">{transaction.status}</td>
+            <td className="text-right">
+              <StatusBadge status={transaction.status || Status.Manufactured} />
+            </td>
           </tr>
         ))}
       </table>

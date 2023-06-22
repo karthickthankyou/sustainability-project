@@ -7,14 +7,17 @@ export const Pagination = ({
   page,
   onChange,
   ...props
-}: PaginationProps) => (
-  <MuiPagination
-    count={count}
-    page={page}
-    onChange={onChange}
-    classes={{
-      root: 'mt-4 border-0',
-    }}
-    {...props}
-  />
-)
+}: PaginationProps) => {
+  console.log('Pagination ', count, page)
+  return (
+    <MuiPagination
+      count={count}
+      page={page}
+      onChange={onChange}
+      classes={{
+        root: 'mt-4 border-0',
+      }}
+      {...props}
+    />
+  )
+}

@@ -29,7 +29,9 @@ export const MyProjects = ({}: IMyProjectsProps) => {
           <PageTitle>My products</PageTitle>
           <PlainButton
             onClick={() => {
-              getProducts()
+              getProducts({
+                fetchPolicy: 'network-only',
+              })
             }}
           >
             <IconRefresh
@@ -52,7 +54,7 @@ export const MyProjects = ({}: IMyProjectsProps) => {
         className="grid gap-12 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 "
       >
         {data?.products?.map((product) => (
-          <ProductCard key={product.id} product={product} />
+          <ProductCard key={product.id} product={product} showAddItems />
         ))}
       </ShowData>
     </div>

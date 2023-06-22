@@ -12,6 +12,8 @@ export class ManufacturerOrderByWithRelationInput
     >
 {
   @Field(() => Prisma.SortOrder, { nullable: true })
+  createdAt: Prisma.SortOrder
+  @Field(() => Prisma.SortOrder, { nullable: true })
   id: Prisma.SortOrder
   @Field(() => ProductOrderByRelationAggregateInput, { nullable: true })
   products: ProductOrderByRelationAggregateInput

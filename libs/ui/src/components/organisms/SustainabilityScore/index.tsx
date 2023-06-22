@@ -1,0 +1,1 @@
+export { SustainabilityScore } from './SustainabilityScore'

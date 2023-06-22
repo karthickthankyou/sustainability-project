@@ -58,10 +58,16 @@ export type IntFilter = {
 
 export type Manufacturer = {
   __typename?: 'Manufacturer'
+  createdAt: Scalars['DateTime']
   id: Scalars['String']
+  manufacturedCount: Scalars['Int']
+  products: Array<Product>
+  returnedCount: Scalars['Int']
+  soldCount: Scalars['Int']
 }
 
 export type ManufacturerOrderByWithRelationInput = {
+  createdAt?: InputMaybe<SortOrder>
   id?: InputMaybe<SortOrder>
   products?: InputMaybe<ProductOrderByRelationAggregateInput>
 }
@@ -72,6 +78,7 @@ export type ManufacturerRelationFilter = {
 }
 
 export enum ManufacturerScalarFieldEnum {
+  CreatedAt = 'createdAt',
   Id = 'id',
 }
 
@@ -79,6 +86,7 @@ export type ManufacturerWhereInput = {
   AND?: InputMaybe<Array<ManufacturerWhereInput>>
   NOT?: InputMaybe<Array<ManufacturerWhereInput>>
   OR?: InputMaybe<Array<ManufacturerWhereInput>>
+  createdAt?: InputMaybe<DateTimeFilter>
   id?: InputMaybe<StringFilter>
   products?: InputMaybe<ProductListRelationFilter>
 }
@@ -220,6 +228,7 @@ export type Query = {
   __typename?: 'Query'
   manufacturer?: Maybe<Manufacturer>
   manufacturers: Array<Manufacturer>
+  manufacturersCount: AggregateCountOutput
   product?: Maybe<Product>
   productItem?: Maybe<ProductItem>
   productItems?: Maybe<Array<ProductItem>>
@@ -240,6 +249,10 @@ export type QueryManufacturersArgs = {
   orderBy?: InputMaybe<Array<ManufacturerOrderByWithRelationInput>>
   skip?: InputMaybe<Scalars['Int']>
   take?: InputMaybe<Scalars['Int']>
+  where?: InputMaybe<ManufacturerWhereInput>
+}
+
+export type QueryManufacturersCountArgs = {
   where?: InputMaybe<ManufacturerWhereInput>
 }
 
@@ -374,7 +387,15 @@ export type ManufacturersQueryVariables = Exact<{ [key: string]: never }>
 
 export type ManufacturersQuery = {
   __typename?: 'Query'
-  manufacturers: Array<{ __typename?: 'Manufacturer'; id: string }>
+  manufacturers: Array<{
+    __typename?: 'Manufacturer'
+    id: string
+    manufacturedCount: number
+    soldCount: number
+    returnedCount: number
+    createdAt: any
+  }>
+  manufacturersCount: { __typename?: 'AggregateCountOutput'; count: number }
 }
 
 export type ProductsQueryVariables = Exact<{
@@ -447,6 +468,13 @@ export const ManufacturersDocument = /*#__PURE__*/ gql`
   query manufacturers {
     manufacturers {
       id
+      manufacturedCount
+      soldCount
+      returnedCount
+      createdAt
+    }
+    manufacturersCount {
+      count
     }
   }
 `

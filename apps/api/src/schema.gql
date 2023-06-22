@@ -3,8 +3,18 @@
 # ------------------------------------------------------
 
 type Manufacturer {
+  createdAt: DateTime!
   id: String!
+  products: [Product!]!
+  manufacturedCount: Int!
+  soldCount: Int!
+  returnedCount: Int!
 }
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
 
 type AggregateCountOutput {
   count: Int!
@@ -21,11 +31,6 @@ type Product {
   soldCount: Int!
   returnedCount: Int!
 }
-
-"""
-A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
-"""
-scalar DateTime
 
 type ProductItem {
   status: Status
@@ -53,6 +58,7 @@ type Transaction {
 type Query {
   manufacturers(where: ManufacturerWhereInput, orderBy: [ManufacturerOrderByWithRelationInput!], cursor: ManufacturerWhereUniqueInput, take: Int, skip: Int, distinct: [ManufacturerScalarFieldEnum!]): [Manufacturer!]!
   manufacturer(where: ManufacturerWhereUniqueInput): Manufacturer
+  manufacturersCount(where: ManufacturerWhereInput): AggregateCountOutput!
   products(where: ProductWhereInput, orderBy: [ProductOrderByWithRelationInput!], cursor: ProductWhereUniqueInput, take: Int, skip: Int, distinct: [ProductScalarFieldEnum!]): [Product!]
   product(where: ProductWhereUniqueInput): Product
   productsCount(where: ProductWhereInput): AggregateCountOutput!
@@ -64,11 +70,22 @@ type Query {
 }
 
 input ManufacturerWhereInput {
+  createdAt: DateTimeFilter
   id: StringFilter
   products: ProductListRelationFilter
   AND: [ManufacturerWhereInput!]
   OR: [ManufacturerWhereInput!]
   NOT: [ManufacturerWhereInput!]
+}
+
+input DateTimeFilter {
+  equals: String
+  in: [String!]
+  notIn: [String!]
+  lt: String
+  lte: String
+  gt: String
+  gte: String
 }
 
 input StringFilter {
@@ -110,16 +127,6 @@ input ProductWhereInput {
   AND: [ProductWhereInput!]
   OR: [ProductWhereInput!]
   NOT: [ProductWhereInput!]
-}
-
-input DateTimeFilter {
-  equals: String
-  in: [String!]
-  notIn: [String!]
-  lt: String
-  lte: String
-  gt: String
-  gte: String
 }
 
 input IntFilter {
@@ -192,6 +199,7 @@ input ProductItemRelationFilter {
 }
 
 input ManufacturerOrderByWithRelationInput {
+  createdAt: SortOrder
   id: SortOrder
   products: ProductOrderByRelationAggregateInput
 }
@@ -211,6 +219,7 @@ input ManufacturerWhereUniqueInput {
 
 enum ManufacturerScalarFieldEnum {
   id
+  createdAt
 }
 
 input ProductOrderByWithRelationInput {
