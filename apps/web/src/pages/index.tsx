@@ -27,9 +27,15 @@ export default function Home() {
     <div>
       <div className="relative ">
         <SustainabilityScene />
-        <div className="absolute bottom-0 mb-6 -translate-x-1/2 left-1/2 ">
-          <Button color="black" onClick={() => executeScroll()}>
-            Explore
+        <div className="absolute top-0 left-0 max-w-2xl p-12 ">
+          <h1 className="font-black text-7xl">Where does your plastic go?</h1>
+          <Button
+            color="black"
+            className="mt-8"
+            size="lg"
+            onClick={() => executeScroll()}
+          >
+            Know more.
           </Button>
         </div>
       </div>
