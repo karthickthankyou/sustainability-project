@@ -8,6 +8,7 @@ async function bootstrap() {
       'https://studio.apollographql.com',
       'http://localhost:3001',
       'https://sustainability-project.iamkarthick.com',
+      'http://localhost:10000', // Flutter dev
     ],
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: 'Content-Type, Accept, Authorization',

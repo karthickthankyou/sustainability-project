@@ -7,6 +7,7 @@ import { Transactions } from '@sustainability-project/ui/src/components/template
 import { SustainabilityScene } from '@sustainability-project/3d/src/scenes/SustainabilityScene'
 import { Button } from '@sustainability-project/ui/src/components/atoms/Button'
 import { useRef } from 'react'
+import { IconMouse } from '@tabler/icons-react'
 
 export const useScrollTo = () => {
   const interactiveMapRef = useRef<HTMLDivElement | null>(null)
@@ -29,6 +30,9 @@ export default function Home() {
         <SustainabilityScene />
         <div className="absolute top-0 left-0 max-w-2xl p-12 ">
           <h1 className="font-black text-7xl">Where does your plastic go?</h1>
+          <p className="mt-4 font-light">
+            Portfolio project by Karthick Ragavendran.
+          </p>
           <Button
             color="black"
             className="mt-8"
@@ -37,6 +41,11 @@ export default function Home() {
           >
             Know more.
           </Button>
+        </div>
+        <div className="absolute bottom-0 right-0 p-12 ">
+          <div>
+            Use CMD + <IconMouse className="inline" /> Scroll to zoom.
+          </div>
         </div>
       </div>
       <div ref={ref} className="h-16" />

@@ -11,6 +11,7 @@ import { CircleSpawner } from '../components/AnchoredCircle'
 import { Euler, Vector3, DoubleSide } from 'three'
 import { HollowCircle } from '../components/HollowCircle'
 import { GrowingCircle } from '../components/GrowingCircle'
+import { CustomOrbitControls } from '../components/CustomOrbitController'
 
 const radians = (degrees: number) => degrees * (Math.PI / 180)
 
@@ -97,16 +98,7 @@ export const SustainabilityScene = ({
       )}
       {children}
 
-      {orbitControls ? (
-        <OrbitControls
-          //   minPolarAngle={radians(60)}
-          //   maxPolarAngle={radians(120)}
-          //   minAzimuthAngle={radians(60)}
-          //   maxAzimuthAngle={radians(120)}
-          minDistance={40}
-          maxDistance={80}
-        />
-      ) : null}
+      {orbitControls ? <CustomOrbitControls /> : null}
       <group rotation={new Euler(radians(0), radians(-90), radians(90))}>
         {[8.8, 11.2].map((distance) => (
           <CircleSpawner

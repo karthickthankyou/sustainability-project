@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import Web3 from 'web3'
 import { Contract } from 'web3-eth-contract'
 import contractInfo from '../../standalone-projects/smart-contract/contractInfo.json'
+import { notification$ } from '@sustainability-project/util/subjects'
 
 declare global {
   interface Window {
@@ -49,9 +50,14 @@ export const useAccount = () => {
     } else if (window?.web3) {
       window.web3 = new Web3(window?.web3.currentProvider)
     } else {
-      window.alert(
-        'Non-Ethereum browser detected. You should consider trying MetaMask!',
-      )
+      notification$.next({
+        message:
+          'Non-Ethereum browser detected. You should consider trying MetaMask!',
+        type: 'error',
+      })
+      //   window.alert(
+      //     'Non-Ethereum browser detected. You should consider trying MetaMask!',
+      //   )
     }
   }
 

@@ -15,7 +15,7 @@ export const AlertNoAccount = ({}: IAlertNoAccountProps) => {
           }}
           className="text-xs underline underline-offset-4"
         >
-          Refresh.
+          Signed in? Refresh.
         </PlainButton>
       </AlertSection>
     </Container>
