@@ -197,7 +197,7 @@ export const SustainabilityScene = ({
           position={[0, 30, 0]}
           rotation={new Euler(radians(90), radians(90), 0)}
         >
-          <meshBasicMaterial color="#222" side={DoubleSide} />
+          <meshBasicMaterial color="white" side={DoubleSide} />
         </Plane>
         <Plane
           name="Consumption plane"
@@ -205,21 +205,21 @@ export const SustainabilityScene = ({
           position={[0, 0, 30]}
           rotation={new Euler(0, radians(90), 0)}
         >
-          <meshBasicMaterial color="#222" side={DoubleSide} />
+          <meshBasicMaterial color="white" side={DoubleSide} />
         </Plane>
         <Plane
           args={[11, 0.2]}
           position={[0, 0, -30]}
           rotation={new Euler(0, radians(90), 0)}
         >
-          <meshBasicMaterial color="#222" side={DoubleSide} />
+          <meshBasicMaterial color="white" side={DoubleSide} />
         </Plane>
         <Plane
           args={[11, 0.2]}
           position={[0, -30, 0]}
           rotation={new Euler(radians(90), radians(90), 0)}
         >
-          <meshBasicMaterial color="#222" side={DoubleSide} />
+          <meshBasicMaterial color="white" side={DoubleSide} />
         </Plane>
 
         {/* Manufacturing */}

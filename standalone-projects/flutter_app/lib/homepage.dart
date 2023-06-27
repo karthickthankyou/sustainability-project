@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/transactions3.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import './page1.dart';
 import './page2.dart';
@@ -119,6 +120,19 @@ class MyHomePage extends StatelessWidget {
                   MaterialPageRoute(
                       builder: (context) => Transactions(
                             title: "Transactions",
+                          )),
+                );
+              },
+            ),
+            ListTile(
+              title: const Text('Transactions3'),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => Transactions3(
+                            title: "Transactions3",
                           )),
                 );
               },
