@@ -42,25 +42,25 @@ const pollutionSpawnerData = [
   {
     title: 'Manufacturing',
     position: new Vector3(-30, 24, 0),
-    rotationAngles: [150, 180, 210],
+    rotationAngles: [170, 180, 190],
     initialDelay: DURATION / 4,
   },
   {
     title: 'Consumption',
     position: new Vector3(-30, 0, 24),
-    rotationAngles: [-60, -120],
+    rotationAngles: [-80, -100],
     initialDelay: DURATION / 2,
   },
   {
     title: 'Waste management',
     position: new Vector3(-30, -24, 0),
-    rotationAngles: [-30, 30],
+    rotationAngles: [-10, 10],
     initialDelay: (DURATION * 3) / 4,
   },
   {
     title: 'Recycle',
     position: new Vector3(-30, 0, -24),
-    rotationAngles: [60, 120],
+    rotationAngles: [80, 100],
     initialDelay: DURATION,
   },
 ]
@@ -331,11 +331,15 @@ export const SustainabilityScene = ({
             side={DoubleSide}
             attach="material"
             color={'#999'}
+            transparent={true}
+            opacity={0.2}
           />
         </mesh>
         <mesh position={[-90, 0, 0]} rotation={new Euler(0, radians(90), 0)}>
           <circleGeometry attach="geometry" args={[240, 128]} />
           <meshBasicMaterial
+            transparent={true}
+            opacity={0.2}
             side={DoubleSide}
             attach="material"
             color={'#999'}
