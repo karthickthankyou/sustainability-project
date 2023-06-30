@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/transactions.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import './homepage.dart';
+import 'design/color.dart';
 
 void main() {
   runApp(const MyApp());
@@ -28,9 +29,9 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
-          primarySwatch: Colors.red,
+          primarySwatch: AppColors.primaryPalette,
         ),
-        home: const MyHomePage(title: 'Sustainability project'),
+        home: const Transactions(title: 'Sustainability project'),
       ),
     );
   }

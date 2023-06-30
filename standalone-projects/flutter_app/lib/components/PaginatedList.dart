@@ -43,14 +43,12 @@ class _PaginatedListState<T> extends State<PaginatedList<T>> {
             ),
           ),
         if (widget.errorMessage != null) Text('Error: ${widget.errorMessage}'),
-        if (!widget.isLoading &&
-            widget.itemsCount > widget.items.length &&
-            widget.items.isNotEmpty)
+        if (!widget.isLoading && widget.itemsCount > widget.items.length)
           ElevatedButton(
             onPressed: widget.onLoadMore,
             child: const Text('Load More'),
           )
-        else
+        else if (!widget.isLoading && widget.itemsCount <= widget.items.length)
           const Text("Thats all. 🤷")
       ],
     );

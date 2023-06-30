@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'dart:developer';
 import './components/TransactionCard.dart';
+import './components/PaginatedList.dart';
+import 'manufacturers.dart';
+import 'products.dart';
+import './design/color.dart';
 
 class Transactions extends StatefulWidget {
   const Transactions({Key? key, required this.title}) : super(key: key);
@@ -9,13 +12,17 @@ class Transactions extends StatefulWidget {
   final String title;
 
   @override
+  // ignore: library_private_types_in_public_api
   _TransactionsState createState() => _TransactionsState();
 }
 
 class _TransactionsState extends State<Transactions> {
-  int offset = 0;
+  int currentPage = 0; // Start at page 0
   final int limit = 8;
   String? productItemId;
+
+  List<Map<String, dynamic>> allTransactions = [];
+  int itemsCount = 0;
 
   final String fetchTransactions = """
     query transactions(\$skip: Int, \$take: Int, \$where: TransactionWhereInput) {
@@ -30,8 +37,7 @@ class _TransactionsState extends State<Transactions> {
           }
         }
       }
-
-      transactionsCount {
+      transactionsCount(where: \$where) {
         count
       }
     }
@@ -50,8 +56,9 @@ class _TransactionsState extends State<Transactions> {
             child: TextField(
               onChanged: (value) {
                 setState(() {
-                  offset = 0;
+                  currentPage = 0;
                   productItemId = value;
+                  allTransactions.clear(); // Clear previous transactions
                 });
               },
               decoration: const InputDecoration(
@@ -65,12 +72,25 @@ class _TransactionsState extends State<Transactions> {
               options: QueryOptions(
                 document: gql(fetchTransactions),
                 variables: {
-                  'skip': offset,
+                  'skip': currentPage * limit,
                   'take': limit,
                   if (productItemId?.isNotEmpty == true)
                     'where': {
                       'productItemId': {'equals': productItemId}
                     }
+                },
+                onComplete: (dynamic resultData) {
+                  List<Object?> rawList = resultData['transactions'] ?? [];
+                  int total = resultData['transactionsCount']['count'] ?? 0;
+
+                  List<Map<String, dynamic>> newTransactions =
+                      rawList.map((e) => e as Map<String, dynamic>).toList();
+
+                  // Append new transactions to allTransactions
+                  setState(() {
+                    allTransactions.addAll(newTransactions);
+                    itemsCount = total;
+                  });
                 },
               ),
               builder: (
@@ -78,81 +98,76 @@ class _TransactionsState extends State<Transactions> {
                 VoidCallback? refetch,
                 FetchMore? fetchMore,
               }) {
-                if (result.isLoading && result.data == null) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
-                }
-
-                if (result.hasException) {
-                  return Text(result.exception.toString());
-                }
-
-                List transactions = result.data?['transactions'];
-                int transactionsCount =
-                    result.data?['transactionsCount']['count'];
-
-                if (transactions.isEmpty) {
-                  return const Center(
-                    child: Text('No results'),
-                  );
-                }
-
-                return Column(
-                  children: <Widget>[
-                    Expanded(
-                      child: ListView.builder(
-                        itemCount: transactions.length,
-                        itemBuilder: (context, index) {
-                          return TransactionCard(
-                              transaction: transactions[index]);
-                        },
-                      ),
-                    ),
-                    if (!result.isLoading &&
-                        transactionsCount > transactions.length)
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: ElevatedButton(
-                          onPressed: () {
-                            offset += limit;
-
-                            FetchMoreOptions fetchMoreOpts = FetchMoreOptions(
-                              variables: {
-                                'skip': offset,
-                                'take': limit,
-                                if (productItemId?.isNotEmpty == true)
-                                  'where': {
-                                    'productItemId': {'equals': productItemId}
-                                  }
-                              },
-                              updateQuery:
-                                  (previousResultData, fetchMoreResultData) {
-                                List newTransactions = [
-                                  ...previousResultData?['transactions']
-                                      as List,
-                                  ...fetchMoreResultData?['transactions']
-                                      as List
-                                ];
-
-                                fetchMoreResultData?['transactions'] =
-                                    newTransactions;
-
-                                return fetchMoreResultData;
-                              },
-                            );
-
-                            fetchMore?.call(fetchMoreOpts);
-                          },
-                          child: const Text('Load More'),
-                        ),
-                      ),
-                  ],
+                return PaginatedList<Map<String, dynamic>>(
+                  items: allTransactions,
+                  itemsCount: itemsCount,
+                  itemBuilder: (context, transaction) =>
+                      TransactionCard(transaction: transaction),
+                  onLoadMore: () {
+                    setState(() {
+                      currentPage++;
+                    });
+                  },
+                  isLoading: result.isLoading,
+                  errorMessage:
+                      result.hasException ? result.exception.toString() : null,
                 );
               },
             ),
           ),
         ],
+      ),
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            const DrawerHeader(
+              decoration: BoxDecoration(
+                color: AppColors.primaryColor,
+              ),
+              child: Text('Menu'),
+            ),
+            ListTile(
+              title: const Text('Product list'),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const Products(
+                            title: "Product List",
+                          )),
+                );
+              },
+            ),
+            ListTile(
+              title: const Text('Manufacturers'),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const Manufacturers(
+                            title: "Manufacturers",
+                          )),
+                );
+              },
+            ),
+            ListTile(
+              title: const Text('Transactions'),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const Transactions(
+                            title: "Transactions",
+                          )),
+                );
+              },
+            ),
+          ],
+        ),
       ),
     );
   }

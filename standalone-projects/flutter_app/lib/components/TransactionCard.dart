@@ -30,12 +30,12 @@ class TransactionCard extends StatelessWidget {
             ),
             const SizedBox(height: 10),
             Text(
-              "ID: " + transaction['id'].toString(),
+              "Product ID: " + transaction['id'].toString(),
               style: const TextStyle(fontSize: 16),
             ),
             const SizedBox(height: 10),
             Text(
-              transaction['productItemId'].toString(),
+              "Item ID: " + transaction['productItemId'].toString(),
               style: const TextStyle(fontSize: 16),
             ),
           ],
