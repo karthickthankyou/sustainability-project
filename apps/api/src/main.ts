@@ -7,7 +7,7 @@ async function bootstrap() {
     origin: [
       'https://studio.apollographql.com',
       'http://localhost:3001',
-      'https://sustainability-project.iamkarthick.com',
+      'https://sustainability.iamkarthick.com',
       'http://localhost:10000', // Flutter dev
       'http://localhost:19000', // React native dev
     ],
