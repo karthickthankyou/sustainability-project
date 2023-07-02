@@ -11,9 +11,14 @@ import { ManufacturersModule } from './models/manufacturers/manufacturers.module
 import { ProductsModule } from './models/products/products.module'
 import { ProductItemsModule } from './models/product-items/product-items.module'
 import { TransactionsModule } from './models/transactions/transactions.module'
+import { ThrottlerModule } from '@nestjs/throttler'
 
 @Module({
   imports: [
+    ThrottlerModule.forRoot({
+      ttl: 60,
+      limit: 10,
+    }),
     ConfigModule.forRoot(),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
