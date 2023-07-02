@@ -16,12 +16,12 @@ export interface IApolloProviderProps {
 
 export const ApolloProvider = ({ children }: IApolloProviderProps) => {
   const httpLink = new HttpLink({
-    uri: 'http://localhost:3000/graphql',
+    uri: 'https://api.sustainability.iamkarthick.com/graphql',
   })
 
   const wsLink = new GraphQLWsLink(
     createClient({
-      url: 'wss://localhost:3000/graphql',
+      url: 'wss://api.sustainability.iamkarthick.com/graphql',
     }),
   )
 

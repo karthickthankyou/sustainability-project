@@ -19,7 +19,7 @@ export const ApolloProvider = ({ children }: IApolloProviderProps) => {
   const { account } = useAccount()
 
   const httpLink = new HttpLink({
-    uri: 'http://localhost:3000/graphql',
+    uri: 'https://api.sustainability.iamkarthick.com/graphql',
     headers: {
       authorization: account || '',
     },
@@ -27,7 +27,7 @@ export const ApolloProvider = ({ children }: IApolloProviderProps) => {
 
   const wsLink = new GraphQLWsLink(
     createClient({
-      url: 'wss://localhost:3000/graphql',
+      url: 'wss://api.sustainability.iamkarthick.com/graphql',
       connectionParams: {
         authorization: account || '',
       },
