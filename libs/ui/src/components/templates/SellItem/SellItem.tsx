@@ -7,6 +7,7 @@ import { Button } from '../../atoms/Button'
 import { useAsync } from '@sustainability-project/hooks/async'
 import { sellProductItem } from '@sustainability-project/contract-utilities'
 import { PageTitle } from '../../atoms/PageTitle'
+import { Dialog } from '../../atoms/Dialog'
 
 export interface ISellItemProps {}
 
@@ -22,6 +23,7 @@ export const SellItem = ({}: ISellItemProps) => {
       setProductItemId('')
     }
   }, [data])
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false)
 
   return (
     <div className="max-w-lg">
@@ -33,7 +35,7 @@ export const SellItem = ({}: ISellItemProps) => {
           // get form data
           const data = new FormData(e.currentTarget)
           const productItemId = data.get('productItemId') as string
-          console.log('productItemId:', productItemId)
+
           if (!account || !contract) {
             console.error('account or contract not found.')
             return
@@ -44,6 +46,7 @@ export const SellItem = ({}: ISellItemProps) => {
             contract,
             payload: { productItemId },
           })
+          setShowSuccessMessage(true)
         }}
       >
         <HtmlLabel title="Product item id">
@@ -57,10 +60,17 @@ export const SellItem = ({}: ISellItemProps) => {
         <Button loading={loading} type="submit">
           Mark as sold
         </Button>
-        <div className="mt-2">
-          {data ? 'Item set to sold successfully.' : null}
+      </Form>{' '}
+      <Dialog
+        open={showSuccessMessage}
+        setOpen={setShowSuccessMessage}
+        title={'Success.'}
+      >
+        <div className="text-xl">Item set to sold.</div>
+        <div className="mt-1 mb-4 text-sm text-gray">
+          It may take a few seconds to reflect in our dabatase.
         </div>
-      </Form>
+      </Dialog>
     </div>
   )
 }

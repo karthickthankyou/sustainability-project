@@ -8,7 +8,6 @@ export const Pagination = ({
   onChange,
   ...props
 }: PaginationProps) => {
-  console.log('Pagination ', count, page)
   return (
     <MuiPagination
       count={count}

@@ -1,5 +1,6 @@
 import { useTakeSkip } from '@sustainability-project/hooks'
 import {
+  SortOrder,
   Status,
   useTransactionsLazyQuery,
 } from '@sustainability-project/network/src/generated'
@@ -13,6 +14,7 @@ import { PlainButton } from '../../atoms/PlainButton'
 import { useDebouncedValue } from '@sustainability-project/hooks/async'
 import { PageTitle } from '../../atoms/PageTitle'
 import { StatusBadge } from '../../organisms/StatusBadge'
+import { Container } from '../../atoms/Container'
 
 export interface ITransactionsProps {}
 
@@ -35,6 +37,9 @@ export const Transactions = ({}: ITransactionsProps) => {
       take,
       skip,
       ...(whereCondition ? { where: whereCondition } : null),
+      orderBy: {
+        createdAt: SortOrder.Desc,
+      },
     },
   })
 
@@ -53,16 +58,16 @@ export const Transactions = ({}: ITransactionsProps) => {
           />
         </HtmlLabel>
       </div>
-      <table className="w-full mt-8 border-separate border-spacing-y-2">
-        <tr>
-          <th className="text-left">ID</th>
-          <th className="text-center">Item ID</th>
+
+      <table className="w-full mt-4 border-separate border-spacing-y-1">
+        <tr className="bg-white rounded">
+          <th className="py-2 text-center">Item ID</th>
           <th className="text-center">Date</th>
           <th className="text-center">Name</th>
-          <th className="text-right">Status</th>
+          <th className="text-center">Status</th>
         </tr>
         {data?.transactions?.length === 0 ? (
-          <tr className="text-center ">
+          <tr className="text-center bg-white rounded">
             <td colSpan={5}>
               <div className="py-6 bg-gray-25">
                 <div>No results.</div>
@@ -80,16 +85,18 @@ export const Transactions = ({}: ITransactionsProps) => {
         ) : null}
 
         {data?.transactions?.map((transaction) => (
-          <tr key={transaction.id}>
-            <td>{transaction.id}</td>
+          <tr key={transaction.id} className="p-2 bg-white rounded">
             <td className="text-center">{transaction.productItemId}</td>
-            <td className="text-center">
-              {format(new Date(transaction.createdAt), 'PPp')}
+            <td className="p-2 text-center">
+              <div>{format(new Date(transaction.createdAt), 'PP')}</div>
+              <div className="text-xs text-gray">
+                {format(new Date(transaction.createdAt), 'p')}
+              </div>
             </td>
             <td className="text-center">
               {transaction.productItem.product.name}
             </td>
-            <td className="text-right">
+            <td className="text-center">
               <StatusBadge status={transaction.status || Status.Manufactured} />
             </td>
           </tr>

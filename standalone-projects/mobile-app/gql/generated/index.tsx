@@ -226,6 +226,7 @@ export type Query = {
   product?: Maybe<Product>;
   productItem?: Maybe<ProductItem>;
   productItems?: Maybe<Array<ProductItem>>;
+  productItemsCount: AggregateCountOutput;
   products?: Maybe<Array<Product>>;
   productsCount: AggregateCountOutput;
   transaction?: Maybe<Transaction>;
@@ -270,6 +271,11 @@ export type QueryProductItemsArgs = {
   orderBy?: InputMaybe<Array<ProductItemOrderByWithRelationInput>>;
   skip?: InputMaybe<Scalars['Int']>;
   take?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<ProductItemWhereInput>;
+};
+
+
+export type QueryProductItemsCountArgs = {
   where?: InputMaybe<ProductItemWhereInput>;
 };
 

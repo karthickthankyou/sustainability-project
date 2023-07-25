@@ -232,6 +232,7 @@ export type Query = {
   product?: Maybe<Product>
   productItem?: Maybe<ProductItem>
   productItems?: Maybe<Array<ProductItem>>
+  productItemsCount: AggregateCountOutput
   products?: Maybe<Array<Product>>
   productsCount: AggregateCountOutput
   transaction?: Maybe<Transaction>
@@ -270,6 +271,10 @@ export type QueryProductItemsArgs = {
   orderBy?: InputMaybe<Array<ProductItemOrderByWithRelationInput>>
   skip?: InputMaybe<Scalars['Int']>
   take?: InputMaybe<Scalars['Int']>
+  where?: InputMaybe<ProductItemWhereInput>
+}
+
+export type QueryProductItemsCountArgs = {
   where?: InputMaybe<ProductItemWhereInput>
 }
 
@@ -456,11 +461,36 @@ export type TransactionsQuery = {
   transactionsCount: { __typename?: 'AggregateCountOutput'; count: number }
 }
 
+export type ProductItemsQueryVariables = Exact<{
+  distinct?: InputMaybe<
+    Array<ProductItemScalarFieldEnum> | ProductItemScalarFieldEnum
+  >
+  skip?: InputMaybe<Scalars['Int']>
+  take?: InputMaybe<Scalars['Int']>
+  orderBy?: InputMaybe<
+    | Array<ProductItemOrderByWithRelationInput>
+    | ProductItemOrderByWithRelationInput
+  >
+  where?: InputMaybe<ProductItemWhereInput>
+}>
+
+export type ProductItemsQuery = {
+  __typename?: 'Query'
+  productItems?: Array<{
+    __typename?: 'ProductItem'
+    id: string
+    status?: Status | null
+    product: { __typename?: 'Product'; name: string }
+  }> | null
+  productItemsCount: { __typename?: 'AggregateCountOutput'; count: number }
+}
+
 export const namedOperations = {
   Query: {
     manufacturers: 'manufacturers',
     products: 'products',
     Transactions: 'Transactions',
+    productItems: 'productItems',
   },
 }
 
@@ -698,4 +728,85 @@ export type TransactionsLazyQueryHookResult = ReturnType<
 export type TransactionsQueryResult = Apollo.QueryResult<
   TransactionsQuery,
   TransactionsQueryVariables
+>
+export const ProductItemsDocument = /*#__PURE__*/ gql`
+  query productItems(
+    $distinct: [ProductItemScalarFieldEnum!]
+    $skip: Int
+    $take: Int
+    $orderBy: [ProductItemOrderByWithRelationInput!]
+    $where: ProductItemWhereInput
+  ) {
+    productItems(
+      distinct: $distinct
+      skip: $skip
+      take: $take
+      orderBy: $orderBy
+      where: $where
+    ) {
+      id
+      status
+      product {
+        name
+      }
+    }
+    productItemsCount(where: $where) {
+      count
+    }
+  }
+`
+
+/**
+ * __useProductItemsQuery__
+ *
+ * To run a query within a React component, call `useProductItemsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useProductItemsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useProductItemsQuery({
+ *   variables: {
+ *      distinct: // value for 'distinct'
+ *      skip: // value for 'skip'
+ *      take: // value for 'take'
+ *      orderBy: // value for 'orderBy'
+ *      where: // value for 'where'
+ *   },
+ * });
+ */
+export function useProductItemsQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    ProductItemsQuery,
+    ProductItemsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<ProductItemsQuery, ProductItemsQueryVariables>(
+    ProductItemsDocument,
+    options,
+  )
+}
+export function useProductItemsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    ProductItemsQuery,
+    ProductItemsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<ProductItemsQuery, ProductItemsQueryVariables>(
+    ProductItemsDocument,
+    options,
+  )
+}
+export type ProductItemsQueryHookResult = ReturnType<
+  typeof useProductItemsQuery
+>
+export type ProductItemsLazyQueryHookResult = ReturnType<
+  typeof useProductItemsLazyQuery
+>
+export type ProductItemsQueryResult = Apollo.QueryResult<
+  ProductItemsQuery,
+  ProductItemsQueryVariables
 >

@@ -23,10 +23,6 @@ export const ProductsScreen = () => {
     },
   })
 
-  useEffect(() => {
-    console.log('data ', data?.products?.length)
-  }, [data?.products])
-
   const loadMoreTransactions = async () => {
     await fetchMore({
       variables: {

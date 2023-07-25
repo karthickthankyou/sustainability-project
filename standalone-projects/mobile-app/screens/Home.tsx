@@ -17,10 +17,6 @@ export const TransactionsScreen = () => {
     },
   })
 
-  useEffect(() => {
-    console.log('data ', data?.transactions?.length)
-  }, [data?.transactions])
-
   const loadMoreTransactions = async () => {
     await fetchMore({
       variables: {

@@ -7,6 +7,7 @@ import { Button } from '../../atoms/Button'
 import { useAsync } from '@sustainability-project/hooks/async'
 import { returnProductItem } from '@sustainability-project/contract-utilities'
 import { PageTitle } from '../../atoms/PageTitle'
+import { Dialog } from '../../atoms/Dialog'
 
 export interface IReturnItemProps {}
 
@@ -22,6 +23,7 @@ export const ReturnItem = ({}: IReturnItemProps) => {
       setProductItemId('')
     }
   }, [data])
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false)
 
   return (
     <div className="max-w-lg">
@@ -33,7 +35,7 @@ export const ReturnItem = ({}: IReturnItemProps) => {
           // get form data
           const data = new FormData(e.currentTarget)
           const productItemId = data.get('productItemId') as string
-          console.log('productItemId:', productItemId)
+
           if (!account || !contract) {
             console.error('account or contract not found.')
             return
@@ -43,6 +45,7 @@ export const ReturnItem = ({}: IReturnItemProps) => {
             contract,
             payload: { productItemId },
           })
+          setShowSuccessMessage(true)
         }}
       >
         <HtmlLabel title="Product item id">
@@ -53,13 +56,20 @@ export const ReturnItem = ({}: IReturnItemProps) => {
             onChange={(e) => setProductItemId(e.target.value)}
           />
         </HtmlLabel>{' '}
-        <Button loading={loading} type="submit">
-          Mark as returned
-        </Button>
         <div className="mt-2">
           {data ? 'Product item set to returned.' : null}
         </div>
-      </Form>
+      </Form>{' '}
+      <Dialog
+        open={showSuccessMessage}
+        setOpen={setShowSuccessMessage}
+        title={'Success.'}
+      >
+        <div className="text-xl">Item marked as returned!</div>
+        <div className="mt-1 mb-4 text-sm text-gray">
+          It may take a few seconds to reflect in our dabatase.
+        </div>
+      </Dialog>
     </div>
   )
 }

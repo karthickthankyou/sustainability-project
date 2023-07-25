@@ -25,7 +25,7 @@ export default function Home() {
   const [ref, executeScroll] = useScrollTo()
 
   return (
-    <div>
+    <div className="bg-gray-25">
       <div className="relative ">
         <SustainabilityScene />
         <div className="absolute top-0 left-0 max-w-2xl p-12 ">
@@ -60,6 +60,7 @@ export default function Home() {
           <AlertNoAccount />
         )}
       </div>
+      <div className="h-16" />
     </div>
   )
 }

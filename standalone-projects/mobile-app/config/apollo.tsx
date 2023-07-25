@@ -16,7 +16,7 @@ export interface IApolloProviderProps {
 
 export const ApolloProvider = ({ children }: IApolloProviderProps) => {
   const httpLink = new HttpLink({
-    uri: 'https://api.sustainability.iamkarthick.com/graphql',
+    uri: process.env.NEXT_PUBLIC_API_URL + '/graphql',
   })
 
   const wsLink = new GraphQLWsLink(

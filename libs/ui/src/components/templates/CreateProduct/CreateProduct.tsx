@@ -24,13 +24,14 @@ export const CreateProduct = ({}: ICreateProductProps) => {
 
   const [{ data, loading, error }, createProductFunction] =
     useAsync(createProduct)
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false)
 
   useEffect(() => {
     if (data) {
       reset()
     }
   }, [data])
-  console.log('errors', errors)
+
   const [open, setOpen] = useState(false)
   return (
     <div>
@@ -48,7 +49,6 @@ export const CreateProduct = ({}: ICreateProductProps) => {
               return
             }
 
-            console.log(name, plasticWeight)
             await createProductFunction({
               account,
               contract,
@@ -57,6 +57,8 @@ export const CreateProduct = ({}: ICreateProductProps) => {
                 plasticWeight,
               },
             })
+            setShowSuccessMessage(true)
+            setOpen(false)
           })}
         >
           <HtmlLabel title="Name" error={errors.name?.message}>
@@ -71,18 +73,20 @@ export const CreateProduct = ({}: ICreateProductProps) => {
               {...register('plasticWeight', { valueAsNumber: true })}
             />
           </HtmlLabel>{' '}
-          <Button
-            disabled={Boolean(data)}
-            loading={loading}
-            color="black"
-            type="submit"
-          >
+          <Button loading={loading} color="black" type="submit">
             Create
           </Button>
-          <div className="mt-2">
-            {data ? 'Product created successfully.' : null}
-          </div>
         </Form>
+      </Dialog>
+      <Dialog
+        open={showSuccessMessage}
+        setOpen={setShowSuccessMessage}
+        title={'Success.'}
+      >
+        <div className="text-xl">Your product is submitted successfully.</div>
+        <div className="mt-1 mb-4 text-sm text-gray">
+          It may take a few seconds to reflect in our dabatase.
+        </div>
       </Dialog>
     </div>
   )

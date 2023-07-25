@@ -15,8 +15,10 @@ export class ProductsResolver {
   ) {}
 
   @Query(() => [Product], { name: 'products', nullable: true })
-  findAll(@Args() args: FindManyProductArgs) {
-    return this.productsService.findAll(args)
+  async findAll(@Args() args: FindManyProductArgs) {
+    const prods = await this.productsService.findAll(args)
+
+    return prods
   }
 
   @Query(() => Product, { name: 'product', nullable: true })

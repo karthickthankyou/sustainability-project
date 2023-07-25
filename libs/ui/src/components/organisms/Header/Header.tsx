@@ -30,7 +30,7 @@ export const Header = () => {
 
   return (
     <header className="relative z-40">
-      <nav className="fixed top-0 w-full shadow-md shadow-gray-300/10 bg-white/50 backdrop-blur-md">
+      <nav className="fixed top-0 w-full bg-white/50 backdrop-blur-md">
         <Container className="relative z-50 flex items-center justify-between h-16 py-2">
           <div className="relative z-10 flex items-center justify-between w-full gap-16">
             <Link href="/" aria-label="Home" className="w-auto">

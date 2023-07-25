@@ -64,6 +64,7 @@ type Query {
   productsCount(where: ProductWhereInput): AggregateCountOutput!
   productItems(where: ProductItemWhereInput, orderBy: [ProductItemOrderByWithRelationInput!], cursor: ProductItemWhereUniqueInput, take: Int, skip: Int, distinct: [ProductItemScalarFieldEnum!]): [ProductItem!]
   productItem(where: ProductItemWhereUniqueInput): ProductItem
+  productItemsCount(where: ProductItemWhereInput): AggregateCountOutput!
   transactions(where: TransactionWhereInput, orderBy: [TransactionOrderByWithRelationInput!], cursor: TransactionWhereUniqueInput, take: Int, skip: Int, distinct: [TransactionScalarFieldEnum!]): [Transaction!]
   transaction(where: TransactionWhereUniqueInput): Transaction
   transactionsCount(where: TransactionWhereInput): AggregateCountOutput!

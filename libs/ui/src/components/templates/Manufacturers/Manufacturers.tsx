@@ -22,7 +22,7 @@ export const Manufacturers = ({}: IManufacturersProps) => {
           skip,
           take,
         }}
-        className="grid gap-12 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 "
+        className="grid gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 "
       >
         {data?.manufacturers.map((manufacturer) => (
           <ManufacturerCard key={manufacturer.id} manufacturer={manufacturer} />

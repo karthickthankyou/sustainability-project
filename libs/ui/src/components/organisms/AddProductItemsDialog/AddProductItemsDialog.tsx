@@ -36,6 +36,7 @@ export const AddProductItemsDialog = ({
       reset()
     }
   }, [data])
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false)
 
   return (
     <div>
@@ -82,6 +83,16 @@ export const AddProductItemsDialog = ({
             {data ? 'Items added successfully.' : null}
           </div>
         </Form>
+      </Dialog>{' '}
+      <Dialog
+        open={showSuccessMessage}
+        setOpen={setShowSuccessMessage}
+        title={'Success.'}
+      >
+        <div className="text-xl">Items submitted successfully.</div>
+        <div className="mt-1 mb-4 text-sm text-gray">
+          It may take a few seconds to reflect in our dabatase.
+        </div>
       </Dialog>
     </div>
   )

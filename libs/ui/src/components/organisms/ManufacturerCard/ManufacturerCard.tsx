@@ -28,7 +28,7 @@ export const ManufacturerCard = ({ manufacturer }: IManufacturerCardProps) => {
   )
 
   return (
-    <div className="space-y-2 overflow-hidden rounded-lg ">
+    <div className="p-3 space-y-2 overflow-hidden bg-white rounded-lg ">
       <h2 className="font-semibold text-gray-700">
         {manufacturer.id.substring(0, 6)}...
       </h2>

@@ -1,7 +1,8 @@
 import { Status } from '@sustainability-project/network/src/generated'
 
 export interface IStatusBadgeProps {
-  status: Status
+  status?: Status | null
+  shadow?: boolean
 }
 
 const classes = {
@@ -10,10 +11,15 @@ const classes = {
   [Status.Returned]: 'bg-green border border-green ',
 }
 
-export const StatusBadge = ({ status }: IStatusBadgeProps) => {
+export const StatusBadge = ({ status, shadow = true }: IStatusBadgeProps) => {
+  if (!status) {
+    return null
+  }
   return (
     <span
-      className={`${classes[status]} rounded shadow-lg inline-block px-2 py-0.5 bg-opacity-30 text-xs`}
+      className={`${classes[status]} ${
+        shadow ? 'shadow-lg' : null
+      } rounded  inline-block px-2 py-0.5 bg-opacity-30 text-xs`}
     >
       {status}
     </span>

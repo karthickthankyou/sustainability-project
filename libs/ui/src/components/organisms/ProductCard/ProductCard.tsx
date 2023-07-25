@@ -33,26 +33,26 @@ export const ProductCard = ({
   )
 
   return (
-    <div className="space-y-2 overflow-hidden rounded-lg ">
-      <h2 className="font-semibold text-gray-700">
-        {product.name} #{product.id}
-      </h2>
-
-      <p className="font-light ">{product.plasticWeight}g</p>
-      <SustainabilityScore
-        score={score}
-        timeToManufacture={timePerProductManufacturing.displayValue}
-        timeToReturn={timePerProductReturned.displayValue}
-      />
-      <div className="grid grid-cols-3 gap-2">
+    <div className="p-3 space-y-2 overflow-hidden bg-white rounded-lg">
+      <div className="flex justify-between">
+        <h2 className="font-semibold text-gray-700">{product.name}</h2>
+        <p className="font-light ">{product.plasticWeight}g</p>
+      </div>{' '}
+      <div className="grid grid-cols-3 gap-2 py-2">
         <StatCard title={'Inventory'}>
           {product.quantity - (product.soldCount + product.returnedCount)}
         </StatCard>
         <StatCard title={`Sold`}>{product.soldCount}</StatCard>
         <StatCard title={`Returned`}>{product.returnedCount}</StatCard>
       </div>
-
-      {showAddItems ? <AddProductItemsDialog productId={product.id} /> : null}
+      <SustainabilityScore
+        score={score}
+        timeToManufacture={timePerProductManufacturing.displayValue}
+        timeToReturn={timePerProductReturned.displayValue}
+      />
+      <div className="flex justify-end">
+        {showAddItems ? <AddProductItemsDialog productId={product.id} /> : null}
+      </div>
     </div>
   )
 }
@@ -65,7 +65,7 @@ export const StatCard = ({
   children: ReactNode
 }) => {
   return (
-    <div className="flex flex-col px-2 py-1 border rounded shadow-lg border-gray-50">
+    <div className="flex flex-col py-1">
       <div className="text-sm text-gray">{title}</div>
       <div className="font-bold">{children}</div>
     </div>
