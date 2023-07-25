@@ -33,6 +33,7 @@
     "@prisma/client": "4.16.0",
     "change-case": "^4.1.2",
     "graphql": "^16.6.0",
+    "graphql-request": "^6.1.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.2.0",
     "web3": "^1.10.0"
