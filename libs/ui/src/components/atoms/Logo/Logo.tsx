@@ -7,7 +7,7 @@ export interface ILogoProps {}
 
 export const Logo = ({}: ILogoProps) => {
   return (
-    <div className="relative flex items-center gap-1 ">
+    <div className="relative flex items-center gap-2 ">
       <PlantIcon />
 
       <div
@@ -22,9 +22,11 @@ export const Logo = ({}: ILogoProps) => {
         // className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-red via-gray-50 to-green"
         className="z-10 text-xl font-semibold "
       >
-        Sustainability Project
+        <div>Sustainability Project</div>
+        <div className="text-xs text-gray">Karthick Ragavendran</div>
       </div>
-      <div className="absolute z-20 px-1 mb-4 -translate-x-1 left-full">
+
+      <div className="absolute top-0 z-20 px-1 mb-4 -translate-x-1 -translate-y-1/2 left-full">
         <ScrollText
           input={[
             'Web3',

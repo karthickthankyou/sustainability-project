@@ -28,13 +28,11 @@ export default function Home() {
     <div className="bg-gray-25">
       <div className="relative ">
         <SustainabilityScene />
-        <div className="absolute top-0 left-0 max-w-2xl p-12 ">
-          <h1 className="font-black text-7xl">Where does your plastic go?</h1>
-          <p className="mt-4 font-light">
-            Portfolio project by Karthick Ragavendran.
-          </p>
+        <div className="absolute top-0 left-0 max-w-2xl p-12 text-white ">
+          <h1 className="font-black text-7xl">Where does our plastic go?</h1>
+
           <Button
-            color="black"
+            color="white"
             className="mt-8"
             size="lg"
             onClick={() => executeScroll()}

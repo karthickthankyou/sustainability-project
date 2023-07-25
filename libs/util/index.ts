@@ -36,7 +36,7 @@ export const filterMenuItems = ({
 }
 
 export const MENUITEMS: MenuItem[] = [
-  { label: 'My products', href: '/my-products', loggedIn: true },
+  { label: 'My Products', href: '/my-products', loggedIn: true },
   { label: 'Admin', href: '/admin', loggedIn: true, admin: true },
   { label: 'About', href: '/about' },
 ]
