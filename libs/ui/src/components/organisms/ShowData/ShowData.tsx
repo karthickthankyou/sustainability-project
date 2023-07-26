@@ -60,9 +60,9 @@ export const ShowData = ({
           {!hidePagination ? (
             <div className="flex justify-center">
               <Pagination
-                count={Math.ceil(totalCount / take) || 1} // Use ceil to round up, ensuring we get all pages
-                page={skip / (take || 12) + 1} // Page numbers should start from 1, not 0
-                onChange={(v, c) => setSkip((c - 1) * (take || 12))} // Subtract 1 here, since c starts from 1
+                count={Math.ceil(totalCount / take) || 1}
+                page={skip / (take || 12) + 1}
+                onChange={(v, c) => setSkip((c - 1) * (take || 12))}
               />
             </div>
           ) : null}
